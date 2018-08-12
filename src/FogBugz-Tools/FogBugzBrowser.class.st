@@ -3,7 +3,7 @@ A browser for Fogbugz cases
 "
 Class {
 	#name : #FogBugzBrowser,
-	#superclass : #ComposableModel,
+	#superclass : #ComposablePresenter,
 	#instVars : [
 		'client',
 		'casesModel',

@@ -3,7 +3,7 @@ Login dialog
 "
 Class {
 	#name : #FGBLoginDialogModel,
-	#superclass : #ComposableModel,
+	#superclass : #ComposablePresenter,
 	#instVars : [
 		'usernameLabel',
 		'usernameField',
