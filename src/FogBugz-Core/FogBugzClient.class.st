@@ -62,6 +62,18 @@ FogBugzClient >> jsonAPILocation [
 ]
 
 { #category : #interacting }
+FogBugzClient >> listAreas [
+	| rawResult |
+	rawResult := self executeCommand: (FGBListAreasCommand new).
+
+	(rawResult at: #errorCode) ifNil: [
+		(rawResult at: #data) ifNotEmpty: [ :data |
+			^ (data at: #areas) 
+				collect: [ :each | each at: #sArea ]]].
+	^ #()
+]
+
+{ #category : #interacting }
 FogBugzClient >> listCategories [
 	| rawResult |
 	rawResult := self executeCommand: (FGBListCategoriesCommand new).
@@ -74,6 +86,42 @@ FogBugzClient >> listCategories [
 ]
 
 { #category : #interacting }
+FogBugzClient >> listMilestones [
+	| rawResult |
+	rawResult := self executeCommand: (FGBListMilestonesCommand new).
+	
+	(rawResult at: #errorCode) ifNil: [
+		(rawResult at: #data) ifNotEmpty: [ :data |
+			^ (data at: #fixfors) 
+				collect: [ :each | each at: #sFixFor ]]].
+	^ #()
+]
+
+{ #category : #interacting }
+FogBugzClient >> listPeople [
+	| rawResult |
+	rawResult := self executeCommand: (FGBListPeopleCommand new).
+
+	(rawResult at: #errorCode) ifNil: [
+		(rawResult at: #data) ifNotEmpty: [ :data |
+			^ (data at: #people) 
+				collect: [ :each | each at: #sFullName ]]].
+	^ #()
+]
+
+{ #category : #interacting }
+FogBugzClient >> listPriorities [
+	| rawResult |
+	rawResult := self executeCommand: (FGBListPrioritiesCommand new).
+
+	(rawResult at: #errorCode) ifNil: [
+		(rawResult at: #data) ifNotEmpty: [ :data |
+			^ (data at: #priorities) 
+				collect: [ :each | each at: #sPriority ]]].
+	^ #()
+]
+
+{ #category : #interacting }
 FogBugzClient >> listProjects [
 	| rawResult |
 	rawResult := self executeCommand: (FGBListProjectsCommand new).
@@ -82,6 +130,18 @@ FogBugzClient >> listProjects [
 		(rawResult at: #data) ifNotEmpty: [ :data |
 			^ (data at: #projects) 
 				collect: [ :each | each at: #sProject ]]].
+	^ #()
+]
+
+{ #category : #interacting }
+FogBugzClient >> listStatuses [
+	| rawResult |
+	rawResult := self executeCommand: (FGBListStatusesCommand new).
+
+	(rawResult at: #errorCode) ifNil: [
+		(rawResult at: #data) ifNotEmpty: [ :data |
+			^ (data at: #statuses) 
+				collect: [ :each | each at: #sStatus ]]].
 	^ #()
 ]
 
