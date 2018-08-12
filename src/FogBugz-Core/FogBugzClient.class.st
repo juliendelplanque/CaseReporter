@@ -61,6 +61,18 @@ FogBugzClient >> jsonAPILocation [
 	^'https://pharo.fogbugz.com/f/api/0/jsonapi'
 ]
 
+{ #category : #interacting }
+FogBugzClient >> listProjects [
+	| rawResult |
+	rawResult := self executeCommand: (FGBListProjectsCommand new).
+
+	(rawResult at: #errorCode) ifNil: [
+		(rawResult at: #data) ifNotEmpty: [ :data |
+			^ (data at: #projects) 
+				collect: [ :each | each at: #sProject ]]].
+	^ #()
+]
+
 { #category : #private }
 FogBugzClient >> login: email password: password [
 	| ston |
