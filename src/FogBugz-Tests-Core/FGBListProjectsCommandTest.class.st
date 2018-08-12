@@ -12,12 +12,14 @@ FGBListProjectsCommandTest >> setUp [
 
 	super setUp.
 	command := FGBListProjectsCommand new
+						token: 'foo42';
+						yourself
 
 ]
 
 { #category : #tests }
 FGBListProjectsCommandTest >> testInstanceCreation [
-	self assert: command printString equals: '{"cmd": "listProjects","token": "nil"}'
+	self assert: command printString equals: '{"cmd": "listProjects","token": "foo42"}'
 ]
 
 { #category : #tests }

@@ -62,6 +62,18 @@ FogBugzClient >> jsonAPILocation [
 ]
 
 { #category : #interacting }
+FogBugzClient >> listCategories [
+	| rawResult |
+	rawResult := self executeCommand: (FGBListCategoriesCommand new).
+
+	(rawResult at: #errorCode) ifNil: [
+		(rawResult at: #data) ifNotEmpty: [ :data |
+			^ (data at: #categories) 
+				collect: [ :each | each at: #sCategory ]]].
+	^ #()
+]
+
+{ #category : #interacting }
 FogBugzClient >> listProjects [
 	| rawResult |
 	rawResult := self executeCommand: (FGBListProjectsCommand new).
