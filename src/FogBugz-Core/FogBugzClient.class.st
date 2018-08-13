@@ -105,7 +105,7 @@ FogBugzClient >> listPeople [
 	(rawResult at: #errorCode) ifNil: [
 		(rawResult at: #data) ifNotEmpty: [ :data |
 			^ (data at: #people) 
-				collect: [ :each | each at: #sFullName ]]].
+				collect: [ :each | each "at: #sFullName" ]]].
 	^ #()
 ]
 
@@ -162,6 +162,19 @@ FogBugzClient >> logout [
 	res := self executeCommand: FGBLogoutCommand new.
 	(res at: #errorCode) isNil ifTrue: [token := nil. ^self].
 	self readErrorsFrom: res
+]
+
+{ #category : #interacting }
+FogBugzClient >> newCase: aFogBugzCase [
+	| rawResult |
+	rawResult := self executeCommand: (
+							FGBNewCaseCommand new
+									case: aFogBugzCase;
+									yourself).
+	(rawResult at: #errorCode)
+		ifNil: [ ^ self ].
+	
+	self error: ((rawResult at: #errors) first at: #message)
 ]
 
 { #category : #interacting }

@@ -7,7 +7,14 @@ Class {
 	#instVars : [
 		'id',
 		'title',
-		'status'
+		'status',
+		'content',
+		'project',
+		'category',
+		'area',
+		'milestone',
+		'assignee',
+		'priority'
 	],
 	#category : #'FogBugz-Core-Model'
 }
@@ -29,9 +36,49 @@ FogBugzCase >> <= anotherCase [
 	^self id <= anotherCase id
 ]
 
+{ #category : #accessing }
+FogBugzCase >> area [
+	^ area
+]
+
+{ #category : #accessing }
+FogBugzCase >> area: anObject [
+	area := anObject
+]
+
 { #category : #conversion }
 FogBugzCase >> asURL [
 	^'https://pharo.fogbugz.com/f/cases/', self id asString
+]
+
+{ #category : #accessing }
+FogBugzCase >> assignee [
+	^ assignee
+]
+
+{ #category : #accessing }
+FogBugzCase >> assignee: anObject [
+	assignee := anObject
+]
+
+{ #category : #accessing }
+FogBugzCase >> category [
+	^ category
+]
+
+{ #category : #accessing }
+FogBugzCase >> category: anObject [
+	category := anObject
+]
+
+{ #category : #accessing }
+FogBugzCase >> content [
+	^ content
+]
+
+{ #category : #accessing }
+FogBugzCase >> content: anObject [
+	content := anObject
 ]
 
 { #category : #comparision }
@@ -51,6 +98,16 @@ FogBugzCase >> id: aNumber [
 	id := aNumber
 ]
 
+{ #category : #accessing }
+FogBugzCase >> milestone [
+	^ milestone
+]
+
+{ #category : #accessing }
+FogBugzCase >> milestone: anObject [
+	milestone := anObject
+]
+
 { #category : #printing }
 FogBugzCase >> printOn: aStream [
 
@@ -58,6 +115,26 @@ FogBugzCase >> printOn: aStream [
 		nextPutAll: self id asString;
 		nextPutAll: ' - ';
 		nextPutAll: self title asString
+]
+
+{ #category : #accessing }
+FogBugzCase >> priority [
+	^ priority
+]
+
+{ #category : #accessing }
+FogBugzCase >> priority: anObject [
+	priority := anObject
+]
+
+{ #category : #accessing }
+FogBugzCase >> project [
+	^ project
+]
+
+{ #category : #accessing }
+FogBugzCase >> project: anObject [
+	project := anObject
 ]
 
 { #category : #accessing }
