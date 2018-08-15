@@ -245,7 +245,12 @@ FGBCaseCreator >> postAdaptationActions [
 		setSelectedItem: (self priorities detect: #isDefault).
 	
 	self statusesDropList
-		items: (self statusesDropList items sorted: [ :a :b | a orderIndex < b orderIndex ])
+		items: (self statusesDropList items sorted: [ :a :b | a orderIndex < b orderIndex ]).
+		
+	self projectsDropList
+		selectedItem: self projectsDropList items first.
+	self categoriesDropList
+		selectedItem: self categoriesDropList items first.
 ]
 
 { #category : #api }
