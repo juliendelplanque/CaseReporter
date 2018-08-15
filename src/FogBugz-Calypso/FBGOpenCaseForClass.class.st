@@ -1,6 +1,8 @@
 Class {
 	#name : #FBGOpenCaseForClass,
 	#superclass : #ClyBrowserCommand,
+	#traits : 'FBGCalypsoCommand',
+	#classTraits : 'FBGCalypsoCommand classTrait',
 	#instVars : [
 		'classConcerned'
 	],
@@ -14,22 +16,25 @@ FBGOpenCaseForClass class >> canBeExecutedInContext: aBrowserContext [
 	^aBrowserContext isClassSelected 
 ]
 
-{ #category : #accessing }
-FBGOpenCaseForClass class >> defaultMenuItemName [
-	^ 'Open issue'
-]
-
 { #category : #activation }
 FBGOpenCaseForClass class >> fullBrowserMenuActivation [
 	<classAnnotation>
 	
-	^CmdContextMenuActivation byRootGroupItemOrder: 9 for: ClyClassContextOfFullBrowser 
+	^CmdContextMenuActivation byRootGroupItemOrder: self itemOrder for: ClyClassContextOfFullBrowser 
+]
+
+{ #category : #accessing }
+FBGOpenCaseForClass class >> fullBrowserTabActivation [
+	<classAnnotation>
+	
+	^ClyBrowserTabCommandActivation for: ClyClassContextOfFullBrowser 
 ]
 
 { #category : #execution }
 FBGOpenCaseForClass >> execute [
 	| credentials client |
 	credentials := FGBLoginDialogModel getCredentials.
+	credentials ifNil: [ ^ self ].
 	client := FogBugzClient loginUser: credentials key password: credentials value.
 	[
 		FGBCaseCreator new
