@@ -101,9 +101,13 @@ FGBCaseCreator >> initializeWidgets [
 	projectsLabel := self newLabel.
 	projectsLabel label: 'Project:'.
 	projectsDropList := self newDropList.
+	projectsDropList
+		displayBlock: [ :project | project name ].
 	categoriesLabel := self newLabel.
 	categoriesLabel label: 'Category:'.
 	categoriesDropList := self newDropList.
+	categoriesDropList
+		displayBlock: [ :category | category name ].
 ]
 
 { #category : #accessing }
