@@ -56,12 +56,12 @@ FGBCaseCreator >> adaptToClient: aFogBugzClient [
 	| todo |
 	todo := #(
 		areas: listAreas
-		categories: listCategories
 		milestones: listMilestones
 		priorities: listPriorities
-		projects: listProjects
 		statuses: listStatuses
-		users: listPeople).
+		users: listPeople
+		projects: listProjects
+		categories: listCategories).
 	UIManager default displayProgress: 'Fetching data from FogBugz' from: 0 to: todo size during: [ :bar |
 		|i|
 		i := 0.
@@ -69,7 +69,8 @@ FGBCaseCreator >> adaptToClient: aFogBugzClient [
 			bar
 				current: (i := i + 1);
 				title: ('Fetching data from FogBugz: {1}' format: { mutator allButLast }).
-			self perform: mutator with: (accessor value: aFogBugzClient) ] ]
+			self perform: mutator with: (accessor value: aFogBugzClient) ] ].
+	self postAdaptationActions
 ]
 
 { #category : #api }
@@ -128,35 +129,85 @@ FGBCaseCreator >> initialize [
 ]
 
 { #category : #initialization }
-FGBCaseCreator >> initializeLabelledDropLists [
+FGBCaseCreator >> initializeAreasDropList [
 	areasDropList := self newLabelledDropList.
 	areasDropList
 		label: 'Area:' translated;
-		displayBlock: [ :area | area name ].
+		displayBlock: [ :area | area name ]
+]
+
+{ #category : #initialization }
+FGBCaseCreator >> initializeAssignToDropList [
 	assignToDropList := self newLabelledDropList.
 	assignToDropList
 		label: 'Assign to:' translated;
-		displayBlock: [ :user | user name ].
+		displayBlock: [ :user | user name ]
+]
+
+{ #category : #initialization }
+FGBCaseCreator >> initializeCategoriesDropList [
 	categoriesDropList := self newLabelledDropList.
 	categoriesDropList
 		label: 'Category:' translated;
-		displayBlock: [ :category | category name ].
+		displayBlock: [ :category | category name ];
+		whenSelectedItemChanged: [ :category |
+			"When category modified, filter statuses selectable and modify currently selected status to default status for the category."
+			category ifNotNil: [
+				self statusesDropList
+					filteringBlock: [ :status | category id = status categoryId ];
+					selectedItem: (self statusesDropList items detect: [ :status | status id = category defaultStatusIdWhenActive ]) ] ]
+]
+
+{ #category : #initialization }
+FGBCaseCreator >> initializeLabelledDropLists [
+	self
+		initializeAreasDropList;
+		initializeAssignToDropList;
+		initializeMilestonesDropList;
+		initializePrioritiesDropList;
+		initializeStatusesDropList;
+		initializeCategoriesDropList;
+		initializeProjectsDropList
+]
+
+{ #category : #initialization }
+FGBCaseCreator >> initializeMilestonesDropList [
 	milestonesDropList := self newLabelledDropList.
 	milestonesDropList
 		label: 'Milestone:' translated;
-		displayBlock: [ :milestone | milestone name ].
+		displayBlock: [ :milestone | milestone name ]
+]
+
+{ #category : #initialization }
+FGBCaseCreator >> initializePrioritiesDropList [
 	prioritiesDropList := self newLabelledDropList.
 	prioritiesDropList
 		label: 'Priority:' translated;
-		displayBlock: [ :priority | priority name ].
+		displayBlock: [ :priority | priority name ]
+]
+
+{ #category : #initialization }
+FGBCaseCreator >> initializeProjectsDropList [
 	projectsDropList := self newLabelledDropList.
 	projectsDropList
 		label: 'Project:' translated;
-		displayBlock: [ :project | project name ].
+		displayBlock: [ :project | project name ];
+		whenSelectedItemChanged: [ :project |
+			project ifNotNil: [ 
+				"When project modified, set default assignee."
+				assignToDropList
+					selectedItem: (assignToDropList items detect: [ :user | user id = project defaultAssigneeId ]).
+				"When project modified, filter areas valid for the selected project."
+				areasDropList
+					filteringBlock: [ :area | area projectId = project id ] ] ]
+]
+
+{ #category : #initialization }
+FGBCaseCreator >> initializeStatusesDropList [
 	statusesDropList := self newLabelledDropList.
 	statusesDropList
 		label: 'Status:' translated;
-		displayBlock: [ :status | status name ].
+		displayBlock: [ :status | status name ]
 ]
 
 { #category : #initialization }
@@ -186,6 +237,20 @@ FGBCaseCreator >> milestonesDropList [
 { #category : #widgets }
 FGBCaseCreator >> newLabelledDropList [
 	^ self instantiate: FGBLabelledDropList
+]
+
+{ #category : #adapting }
+FGBCaseCreator >> postAdaptationActions [
+	self prioritiesDropList
+		setSelectedItem: (self priorities detect: #isDefault).
+	
+	self statusesDropList
+		items: (self statusesDropList items sorted: [ :a :b | a orderIndex < b orderIndex ])
+]
+
+{ #category : #api }
+FGBCaseCreator >> priorities [
+	^ self prioritiesDropList items
 ]
 
 { #category : #api }

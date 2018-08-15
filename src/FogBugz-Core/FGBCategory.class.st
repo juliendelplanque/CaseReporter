@@ -2,8 +2,8 @@ Class {
 	#name : #FGBCategory,
 	#superclass : #FGBObject,
 	#instVars : [
-		'idDefaultStatus',
-		'idDefaultStatusWhenActive'
+		'defaultStatusId',
+		'defaultStatusIdWhenActive'
 	],
 	#category : #'FogBugz-Core-Model'
 }
@@ -13,27 +13,27 @@ FGBCategory class >> fromDictionary: aDictionary [
 	^ self new
 		id: (aDictionary at: #ixCategory);
 		name: (aDictionary at: #sCategory);
-		idDefaultStatus: (aDictionary at: #ixStatusDefault);
-		idDefaultStatusWhenActive: (aDictionary at: #ixStatusDefaultActive);
+		defaultStatusId: (aDictionary at: #ixStatusDefault);
+		defaultStatusIdWhenActive: (aDictionary at: #ixStatusDefaultActive);
 		yourself
 ]
 
 { #category : #accessing }
-FGBCategory >> idDefaultStatus [
-	^ idDefaultStatus
+FGBCategory >> defaultStatusId [
+	^ defaultStatusId
 ]
 
 { #category : #accessing }
-FGBCategory >> idDefaultStatus: anInteger [ 
-	idDefaultStatus := anInteger
+FGBCategory >> defaultStatusId: anInteger [ 
+	defaultStatusId := anInteger
 ]
 
 { #category : #accessing }
-FGBCategory >> idDefaultStatusWhenActive [
-	^ idDefaultStatusWhenActive
+FGBCategory >> defaultStatusIdWhenActive [
+	^ defaultStatusIdWhenActive
 ]
 
 { #category : #accessing }
-FGBCategory >> idDefaultStatusWhenActive: anInteger [ 
-	idDefaultStatusWhenActive := anInteger
+FGBCategory >> defaultStatusIdWhenActive: anInteger [ 
+	defaultStatusIdWhenActive := anInteger
 ]

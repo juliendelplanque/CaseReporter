@@ -12,5 +12,5 @@ FGBListPeopleCommand >> printOn: aStream [
 
 	aStream
 		nextPutAll:
-			('{"cmd": "listPeople", "token": "<1s>"}' expandMacrosWith: token asString)
+			('{"cmd": "listPeople", "fIncludeNormal":1, "fIncludeVirtual": 1, "token": "<1s>"}' expandMacrosWith: token asString)
 ]
