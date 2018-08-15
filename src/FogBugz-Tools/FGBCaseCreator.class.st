@@ -125,7 +125,7 @@ FGBCaseCreator >> assignToDropList [
 
 { #category : #api }
 FGBCaseCreator >> caseTitle [
-	^ self titleInput text
+	^ self titleInput text asString
 ]
 
 { #category : #api }
@@ -146,7 +146,7 @@ FGBCaseCreator >> categorySelected [
 
 { #category : #checking }
 FGBCaseCreator >> checkUserInputs [
-	self title
+	self caseTitle
 		ifEmpty: [ FGBInvalidInput signal: 'The title of an issue can not be empty.' ].
 		
 	self content
