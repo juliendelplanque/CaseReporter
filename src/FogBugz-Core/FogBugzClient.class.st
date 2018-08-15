@@ -69,7 +69,7 @@ FogBugzClient >> listAreas [
 	(rawResult at: #errorCode) ifNil: [
 		(rawResult at: #data) ifNotEmpty: [ :data |
 			^ (data at: #areas) 
-				collect: [ :each | each at: #sArea ]]].
+				collect: [ :each | FGBArea fromDictionary: each ]]].
 	^ #()
 ]
 
