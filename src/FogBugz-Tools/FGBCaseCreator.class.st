@@ -75,6 +75,11 @@ FGBCaseCreator >> adaptToClient: aFogBugzClient [
 ]
 
 { #category : #api }
+FGBCaseCreator >> areaSelected [
+	^ self areasDropList selectedItem
+]
+
+{ #category : #api }
 FGBCaseCreator >> areas: aCollectionOfAreas [
 	self areasDropList
 		items: aCollectionOfAreas
@@ -83,6 +88,22 @@ FGBCaseCreator >> areas: aCollectionOfAreas [
 { #category : #accessing }
 FGBCaseCreator >> areasDropList [
 	^ areasDropList
+]
+
+{ #category : #api }
+FGBCaseCreator >> asFogBugzCase [
+	self checkUserInputs.
+	^ FogBugzCase new
+		title: self title;
+		content: self content;
+		status: self statusSelected;
+		project: self projectSelected;
+		priority: self prioritySelected;
+		milestone: self milestoneSelected;
+		category: self categorySelected;
+		assignee: self userSelected;
+		area: self areaSelected;
+		yourself
 ]
 
 { #category : #accessing }
@@ -99,6 +120,25 @@ FGBCaseCreator >> categories: anOrderedCollectionOfString [
 { #category : #accessing }
 FGBCaseCreator >> categoriesDropList [
 	^ categoriesDropList
+]
+
+{ #category : #api }
+FGBCaseCreator >> categorySelected [
+	^ self categoriesDropList selectedItem
+]
+
+{ #category : #checking }
+FGBCaseCreator >> checkUserInputs [
+	self title
+		ifEmpty: [ FGBInvalidInput signal: 'The title of an issue can not be empty.' ].
+		
+	self content
+		ifEmpty: [ FGBInvalidInput signal: 'The content of an issue can not be empty.' ]
+]
+
+{ #category : #api }
+FGBCaseCreator >> content [
+	^ self contentText text
 ]
 
 { #category : #accessing }
@@ -225,6 +265,11 @@ FGBCaseCreator >> initializeWidgets [
 ]
 
 { #category : #api }
+FGBCaseCreator >> milestoneSelected [
+	^ self milestonesDropList selectedItem
+]
+
+{ #category : #api }
 FGBCaseCreator >> milestones: aCollectionOfMilestones [
 	self milestonesDropList
 		items: aCollectionOfMilestones
@@ -271,6 +316,16 @@ FGBCaseCreator >> prioritiesDropList [
 ]
 
 { #category : #api }
+FGBCaseCreator >> prioritySelected [
+	^ self prioritiesDropList selectedItem
+]
+
+{ #category : #api }
+FGBCaseCreator >> projectSelected [
+	^ self projectsDropList selectedItem
+]
+
+{ #category : #api }
 FGBCaseCreator >> projects: anOrderedCollectionOfString [
 	self projectsDropList
 		items: anOrderedCollectionOfString
@@ -279,6 +334,11 @@ FGBCaseCreator >> projects: anOrderedCollectionOfString [
 { #category : #accessing }
 FGBCaseCreator >> projectsDropList [
 	^ projectsDropList
+]
+
+{ #category : #api }
+FGBCaseCreator >> statusSelected [
+	^ self statusesDropList selectedItem
 ]
 
 { #category : #api }
@@ -292,6 +352,11 @@ FGBCaseCreator >> statusesDropList [
 	^ statusesDropList
 ]
 
+{ #category : #api }
+FGBCaseCreator >> title [
+	^ self titleInput text
+]
+
 { #category : #accessing }
 FGBCaseCreator >> titleInput [
 	^ titleInput
@@ -300,6 +365,11 @@ FGBCaseCreator >> titleInput [
 { #category : #accessing }
 FGBCaseCreator >> titleLabel [
 	^ titleLabel
+]
+
+{ #category : #api }
+FGBCaseCreator >> userSelected [
+	^ self assignToDropList selectedItem
 ]
 
 { #category : #api }

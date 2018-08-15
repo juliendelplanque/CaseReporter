@@ -94,6 +94,11 @@ FGBLabelledDropList >> resetFilter [
 	self filteringBlock: self defaultFilteringBlock
 ]
 
+{ #category : #accessing }
+FGBLabelledDropList >> selectedItem [
+	^ self dropList selectedItem
+]
+
 { #category : #api }
 FGBLabelledDropList >> selectedItem: anObject [
 	self dropList setSelectedItem: anObject
