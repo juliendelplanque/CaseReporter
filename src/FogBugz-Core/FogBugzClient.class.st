@@ -12,8 +12,21 @@ Class {
 		'token',
 		'errors'
 	],
+	#classInstVars : [
+		'credentials'
+	],
 	#category : #'FogBugz-Core-Base'
 }
+
+{ #category : #accessing }
+FogBugzClient class >> credentials [
+	^ credentials
+]
+
+{ #category : #accessing }
+FogBugzClient class >> credentials: anObject [
+	credentials := anObject
+]
 
 { #category : #examples }
 FogBugzClient class >> example [
@@ -147,11 +160,11 @@ FogBugzClient >> listStatuses [
 
 { #category : #private }
 FogBugzClient >> login: email password: password [
-	| ston |
-	ston := self
+	| rawResult |
+	rawResult := self
 		executeCommand: (FGBLoginCommand loginUser: email password: password).
-	(ston at: #data)
-		ifEmpty: [ self readErrorsFrom: ston ]
+	(rawResult at: #data)
+		ifEmpty: [ self error: ((rawResult at: #errors) first at: #message) ]
 		ifNotEmpty: [ :x | token := x at: #token ]
 ]
 

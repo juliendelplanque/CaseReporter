@@ -33,15 +33,23 @@ FBGOpenCaseForClass class >> fullBrowserTabActivation [
 { #category : #execution }
 FBGOpenCaseForClass >> execute [
 	| credentials client |
-	credentials := FGBLoginDialogModel getCredentials.
-	credentials ifNil: [ ^ self ].
-	client := FogBugzClient loginUser: credentials key password: credentials value.
+	client := nil.
+	credentials := FogBugzClient credentials.
+	[ client isNil ] whileTrue: [
+		credentials ifNil: [ credentials := FGBLoginDialogModel getCredentials ].
+		credentials ifNil: [ ^ self ].
+		[ client := FogBugzClient loginUser: credentials key password: credentials value.
+		  FogBugzClient credentials: credentials ]
+			on: Error
+			do: [ :err |
+				credentials := nil.
+				UIManager default alert: err messageText title: 'Could not log into Fogbugz.' ] ].
 	[
 		FGBCaseCreator new
-			contentTemplate: 'The following issue has been found in {1} class:
+			contentTemplate: ('The following issue has been found in {1} class:
 
 The following code snippet(s) allows to reproduce the issue:
-';
+' format: { classConcerned name });
 			adaptToClient: client;
 			openWithSpec
 	] ensure: [ client logout ].
