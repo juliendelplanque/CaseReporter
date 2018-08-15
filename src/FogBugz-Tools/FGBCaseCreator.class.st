@@ -26,9 +26,7 @@ FGBCaseCreator class >> defaultSpec [
 			newRow: #titleInput height: self inputTextHeight;
 			newRow: [ :catRow |
 				catRow
-					newColumn: #categoriesLabel;
 					newColumn: #categoriesDropList;
-					newColumn: #projectsLabel;
 					newColumn: #projectsDropList ] height: self inputTextHeight;
 			newRow: #contentLabel height: self defaultFont height;
 			newRow: #contentText ];
@@ -51,11 +49,6 @@ FGBCaseCreator >> categories: anOrderedCollectionOfString [
 { #category : #accessing }
 FGBCaseCreator >> categoriesDropList [
 	^ categoriesDropList
-]
-
-{ #category : #accessing }
-FGBCaseCreator >> categoriesLabel [
-	^ categoriesLabel
 ]
 
 { #category : #accessing }
@@ -98,16 +91,19 @@ FGBCaseCreator >> initializeWidgets [
 	contentText := self newText.
 	contentText
 		text: self contentTemplate.
-	projectsLabel := self newLabel.
-	projectsLabel label: 'Project:'.
-	projectsDropList := self newDropList.
+	projectsDropList := self newLabelledDropList.
 	projectsDropList
+		label: 'Project:';
 		displayBlock: [ :project | project name ].
-	categoriesLabel := self newLabel.
-	categoriesLabel label: 'Category:'.
-	categoriesDropList := self newDropList.
+	categoriesDropList := self newLabelledDropList.
 	categoriesDropList
+		label: 'Category:';
 		displayBlock: [ :category | category name ].
+]
+
+{ #category : #widgets }
+FGBCaseCreator >> newLabelledDropList [
+	^ self instantiate: FGBLabelledDropList
 ]
 
 { #category : #accessing }
@@ -119,11 +115,6 @@ FGBCaseCreator >> projects: anOrderedCollectionOfString [
 { #category : #accessing }
 FGBCaseCreator >> projectsDropList [
 	^ projectsDropList
-]
-
-{ #category : #accessing }
-FGBCaseCreator >> projectsLabel [
-	^ projectsLabel
 ]
 
 { #category : #accessing }
