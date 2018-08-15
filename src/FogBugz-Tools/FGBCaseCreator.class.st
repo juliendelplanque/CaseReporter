@@ -15,7 +15,8 @@ Class {
 		'milestonesDropList',
 		'prioritiesDropList',
 		'statusesDropList',
-		'assignToDropList'
+		'assignToDropList',
+		'submitButton'
 	],
 	#category : #'FogBugz-Tools-Dialogs'
 }
@@ -48,7 +49,10 @@ FGBCaseCreator class >> defaultSpec [
 					newColumn: [ :issueDescriptionColumn |
 						issueDescriptionColumn
 							newRow: #contentLabel height: self defaultFont height;
-							newRow: #contentText ] ] ];
+							newRow: #contentText ] ];
+			newRow: [ :submitRow |
+				submitRow
+					newColumn: #submitButton width: self buttonWidth ] height: self buttonHeight ];
        yourself
 ]
 
@@ -71,7 +75,15 @@ FGBCaseCreator >> adaptToClient: aFogBugzClient [
 				current: (i := i + 1);
 				title: ('Fetching data from FogBugz: {1}' format: { mutator allButLast }).
 			self perform: mutator with: (accessor value: aFogBugzClient) ] ].
-	self postAdaptationActions
+	submitButton
+		action: [ 
+			[
+				aFogBugzClient newCase: self asFogBugzCase.
+				UIManager default inform: 'Case opened.'.
+				self delete ]
+				on: Error
+				do: [ :err | UIManager default alert: err messageText title: err class ] ].
+	self postAdaptationActions.
 ]
 
 { #category : #api }
@@ -94,7 +106,7 @@ FGBCaseCreator >> areasDropList [
 FGBCaseCreator >> asFogBugzCase [
 	self checkUserInputs.
 	^ FogBugzCase new
-		title: self title;
+		title: self caseTitle;
 		content: self content;
 		status: self statusSelected;
 		project: self projectSelected;
@@ -109,6 +121,11 @@ FGBCaseCreator >> asFogBugzCase [
 { #category : #accessing }
 FGBCaseCreator >> assignToDropList [
 	^ assignToDropList
+]
+
+{ #category : #api }
+FGBCaseCreator >> caseTitle [
+	^ self titleInput text
 ]
 
 { #category : #api }
@@ -256,12 +273,18 @@ FGBCaseCreator >> initializeWidgets [
 	titleLabel := self newLabel.
 	titleLabel label: 'Title:'.
 	titleInput := self newTextInput.
-	titleInput ghostText: 'Short title to describe the issue'.
+	titleInput
+		ghostText: 'Short title to describe the issue';
+		autoAccept: true.
 	contentLabel := self newLabel.
 	contentLabel label: 'Description:'.
 	contentText := self newText.
-	contentText text: self contentTemplate.
-	self initializeLabelledDropLists
+	contentText
+		text: self contentTemplate;
+		autoAccept: true.
+	self initializeLabelledDropLists.
+	submitButton := self newButton.
+	submitButton label: 'Submit'
 ]
 
 { #category : #api }
@@ -352,9 +375,9 @@ FGBCaseCreator >> statusesDropList [
 	^ statusesDropList
 ]
 
-{ #category : #api }
-FGBCaseCreator >> title [
-	^ self titleInput text
+{ #category : #accessing }
+FGBCaseCreator >> submitButton [
+	^ submitButton
 ]
 
 { #category : #accessing }
