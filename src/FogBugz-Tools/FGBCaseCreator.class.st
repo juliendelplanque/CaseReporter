@@ -81,8 +81,8 @@ FGBCaseCreator >> adaptToClient: aFogBugzClient [
 				aFogBugzClient newCase: self asFogBugzCase.
 				UIManager default inform: 'Case opened.'.
 				self delete ]
-				on: Error
-				do: [ :err | UIManager default alert: err messageText title: err class ] ].
+				on: FGBInvalidInput
+				do: [ :err | UIManager default alert: err messageText title: err class name ] ].
 	self postAdaptationActions.
 ]
 

@@ -59,16 +59,6 @@ FogBugzBrowser class >> icon [
 	^FGBIconCache fogBugzIcon
 ]
 
-{ #category : #menu }
-FogBugzBrowser class >> menuCommandOn: aBuilder [
-	<worldMenu> 		 
-		
-	(aBuilder item: #'FogBugz Browser')	 	 
-		action: [ self open ]; 
-		icon: self icon.
-	aBuilder withSeparatorAfter.		
-]
-
 { #category : #'instance creation' }
 FogBugzBrowser class >> open [
 	<script>
