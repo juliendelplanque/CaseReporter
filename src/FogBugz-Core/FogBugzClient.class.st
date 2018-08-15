@@ -81,7 +81,7 @@ FogBugzClient >> listCategories [
 	(rawResult at: #errorCode) ifNil: [
 		(rawResult at: #data) ifNotEmpty: [ :data |
 			^ (data at: #categories) 
-				collect: [ :each | each at: #sCategory ]]].
+				collect: [ :each | FGBCategory fromDictionary: each ]]].
 	^ #()
 ]
 
@@ -93,7 +93,7 @@ FogBugzClient >> listMilestones [
 	(rawResult at: #errorCode) ifNil: [
 		(rawResult at: #data) ifNotEmpty: [ :data |
 			^ (data at: #fixfors) 
-				collect: [ :each | each at: #sFixFor ]]].
+				collect: [ :each | FGBMilestone fromDictionary: each ]]].
 	^ #()
 ]
 
@@ -105,7 +105,7 @@ FogBugzClient >> listPeople [
 	(rawResult at: #errorCode) ifNil: [
 		(rawResult at: #data) ifNotEmpty: [ :data |
 			^ (data at: #people) 
-				collect: [ :each | each "at: #sFullName" ]]].
+				collect: [ :each | FGBUser fromDictionary: each ]]].
 	^ #()
 ]
 
@@ -117,7 +117,7 @@ FogBugzClient >> listPriorities [
 	(rawResult at: #errorCode) ifNil: [
 		(rawResult at: #data) ifNotEmpty: [ :data |
 			^ (data at: #priorities) 
-				collect: [ :each | each at: #sPriority ]]].
+				collect: [ :each | FGBPriority fromDictionary: each ]]].
 	^ #()
 ]
 
@@ -129,7 +129,7 @@ FogBugzClient >> listProjects [
 	(rawResult at: #errorCode) ifNil: [
 		(rawResult at: #data) ifNotEmpty: [ :data |
 			^ (data at: #projects) 
-				collect: [ :each | each at: #sProject ]]].
+				collect: [ :each | FGBProject fromDictionary: each ]]].
 	^ #()
 ]
 
@@ -141,7 +141,7 @@ FogBugzClient >> listStatuses [
 	(rawResult at: #errorCode) ifNil: [
 		(rawResult at: #data) ifNotEmpty: [ :data |
 			^ (data at: #statuses) 
-				collect: [ :each | each at: #sStatus ]]].
+				collect: [ :each | FGBStatus fromDictionary: each ]]].
 	^ #()
 ]
 

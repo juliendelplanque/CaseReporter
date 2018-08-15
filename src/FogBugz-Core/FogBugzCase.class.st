@@ -3,9 +3,8 @@ A case in FogBugz
 "
 Class {
 	#name : #FogBugzCase,
-	#superclass : #Object,
+	#superclass : #FGBObject,
 	#instVars : [
-		'id',
 		'title',
 		'status',
 		'content',
@@ -88,17 +87,6 @@ FogBugzCase >> hash [
 ]
 
 { #category : #accessing }
-FogBugzCase >> id [
-
-	^id
-]
-
-{ #category : #accessing }
-FogBugzCase >> id: aNumber [
-	id := aNumber
-]
-
-{ #category : #accessing }
 FogBugzCase >> milestone [
 	^ milestone
 ]
@@ -106,6 +94,16 @@ FogBugzCase >> milestone [
 { #category : #accessing }
 FogBugzCase >> milestone: anObject [
 	milestone := anObject
+]
+
+{ #category : #accessing }
+FogBugzCase >> name [
+	^ self title
+]
+
+{ #category : #accessing }
+FogBugzCase >> name: aString [
+	^ self shouldNotImplement "Use #title instead."
 ]
 
 { #category : #printing }

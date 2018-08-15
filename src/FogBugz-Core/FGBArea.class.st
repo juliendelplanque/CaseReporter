@@ -1,9 +1,7 @@
 Class {
 	#name : #FGBArea,
-	#superclass : #Object,
+	#superclass : #FGBObject,
 	#instVars : [
-		'id',
-		'name',
 		'projectId'
 	],
 	#category : #'FogBugz-Core-Model'
@@ -16,39 +14,6 @@ FGBArea class >> fromDictionary: aDictionary [
 		id: (aDictionary at: #ixArea);
 		projectId: (aDictionary at: #ixProject);
 		yourself
-]
-
-{ #category : #accessing }
-FGBArea >> id [
-	^ id
-]
-
-{ #category : #accessing }
-FGBArea >> id: anObject [
-	id := anObject
-]
-
-{ #category : #accessing }
-FGBArea >> name [
-	^ name
-]
-
-{ #category : #accessing }
-FGBArea >> name: anObject [
-	name := anObject
-]
-
-{ #category : #printing }
-FGBArea >> printOn: aStream [
-	super printOn: aStream.
-	aStream
-		<< $(.
-	self id printOn: aStream.
-	aStream
-		<< $:.
-	self name printOn: aStream.
-	aStream
-		<< $)
 ]
 
 { #category : #accessing }
