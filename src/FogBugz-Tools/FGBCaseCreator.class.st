@@ -44,6 +44,7 @@ FGBCaseCreator class >> defaultSpec [
 					newColumn: [ :metadataColumn |
 						metadataColumn
 							newRow: #prioritiesDropList height: self inputTextHeight ];
+					addSplitter;
 					newColumn: [ :issueDescriptionColumn |
 						issueDescriptionColumn
 							newRow: #contentLabel height: self defaultFont height;
