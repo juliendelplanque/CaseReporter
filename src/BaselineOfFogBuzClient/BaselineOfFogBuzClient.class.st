@@ -18,5 +18,7 @@ BaselineOfFogBuzClient >> baseline: spec [
 BaselineOfFogBuzClient >> definePackages: spec [
 	spec
 		package: 'FogBugz-Core';
-		package: 'FogBugz-Tests-Core' with: [ spec requires: #(#'FogBugz-Core' ) ]
+		package: 'FogBugz-Tests-Core' with: [ spec requires: #('FogBugz-Core' ) ];
+		package: 'FogBugz-Tools' with: [ spec requires: #('FogBugz-Core' ) ];
+		package: 'FogBugz-Calypso' with: [ spec requires: #('FogBugz-Core' 'FogBugz-Tools' ) ]
 ]
