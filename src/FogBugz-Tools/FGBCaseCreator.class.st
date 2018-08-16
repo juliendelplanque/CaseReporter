@@ -1,3 +1,12 @@
+"
+I am the widget allowing to describe a case to submit to fogBugz.
+
+To try me:
+
+[[[
+	self example
+]]]
+"
 Class {
 	#name : #FGBCaseCreator,
 	#superclass : #ComposablePresenter,
@@ -54,6 +63,13 @@ FGBCaseCreator class >> defaultSpec [
 				submitRow
 					newColumn: #submitButton width: self buttonWidth ] height: self buttonHeight ];
        yourself
+]
+
+{ #category : #'instance creation' }
+FGBCaseCreator class >> example [
+	| client |
+	client := [ FogBugzClient getWorkingClientByAskingUser ] on: FGBUserCancelledLogin do: [ "abort" ^ self ].
+	^ self openForClient: client withTemplate: 'A custom template for issue description.'
 ]
 
 { #category : #'instance creation' }
