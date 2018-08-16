@@ -82,7 +82,8 @@ FGBCaseCreator class >> openForClient: aFogBugzClient withTemplate: aString [
 	window := caseCreator openWithSpec.
 	window
 		extent: World extent * 0.65;
-		centered.
+		centered;
+		whenClosedDo: [ aFogBugzClient logout ].
 	^ caseCreator
 ]
 
