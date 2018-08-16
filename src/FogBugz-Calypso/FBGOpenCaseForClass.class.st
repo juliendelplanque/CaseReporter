@@ -39,7 +39,7 @@ FBGOpenCaseForClass >> execute [
 	FGBCaseCreator openForClient: client withTemplate: 
 			('The following issue has been found in {1} class:
 
-The following code snippet(s) allows to reproduce the issue:
+The following code snippet(s) allows one to reproduce the issue:
 ' format: {classConcerned name})
 ]
 
