@@ -56,6 +56,20 @@ FGBCaseCreator class >> defaultSpec [
        yourself
 ]
 
+{ #category : #'instance creation' }
+FGBCaseCreator class >> openForClient: aFogBugzClient withTemplate: aString [
+	| caseCreator window |
+	caseCreator := self new
+						contentTemplate: aString;
+						adaptToClient: aFogBugzClient;
+						yourself.
+	window := caseCreator openWithSpec.
+	window
+		extent: World extent * 0.65;
+		centered.
+	^ caseCreator
+]
+
 { #category : #adapting }
 FGBCaseCreator >> adaptToClient: aFogBugzClient [
 	| todo |

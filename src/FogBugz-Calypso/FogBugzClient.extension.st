@@ -1,7 +1,7 @@
 Extension { #name : #FogBugzClient }
 
 { #category : #'*FogBugz-Calypso' }
-FogBugzClient class >> getWorkingClientByAskingUserOrNil [
+FogBugzClient class >> getWorkingClientByAskingUser [
 	| potentialCredentials client |
 	client := nil.
 	potentialCredentials := FogBugzClient credentials.
