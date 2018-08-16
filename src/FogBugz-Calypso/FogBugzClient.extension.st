@@ -7,13 +7,12 @@ FogBugzClient class >> getWorkingClientByAskingUserOrNil [
 	potentialCredentials := FogBugzClient credentials.
 	[ client isNil ] whileTrue: [
 		potentialCredentials ifNil: [ potentialCredentials := FGBLoginDialogModel getCredentials ].
-		potentialCredentials ifNil: [ ^ nil ].
+		potentialCredentials ifNil: [ FGBUserCancelledLogin signal ].
 		[ client := FogBugzClient loginUser: potentialCredentials key password: potentialCredentials value.
 		  FogBugzClient credentials: potentialCredentials ]
 			on: Error
 			do: [ :err |
 				potentialCredentials := nil.
 				UIManager default alert: err messageText title: 'Could not log into Fogbugz.' ] ].
-	client inspect.
 	^ client
 ]

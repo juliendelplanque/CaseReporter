@@ -1,5 +1,5 @@
 Class {
-	#name : #FGBInvalidInput,
+	#name : #FGBUserCancelledLogin,
 	#superclass : #Error,
 	#category : #'FogBugz-Tools-Errors'
 }
