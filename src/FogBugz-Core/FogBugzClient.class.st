@@ -60,7 +60,7 @@ FogBugzClient >> executeCommand: aCommand [
 		fromString:
 			(ZnClient new
 				post: self jsonAPILocation
-				contents: aCommand printString)
+				contents: aCommand asPostContentJSON)
 ]
 
 { #category : #testing }

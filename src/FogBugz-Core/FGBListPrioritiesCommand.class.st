@@ -7,10 +7,9 @@ Class {
 	#category : #'FogBugz-Core-Commands'
 }
 
-{ #category : #printing }
-FGBListPrioritiesCommand >> printOn: aStream [
-
-	aStream
-		nextPutAll:
-			('{"cmd": "listPriorities", "token": "<1s>"}' expandMacrosWith: token asString)
+{ #category : #filling }
+FGBListPrioritiesCommand >> fillPostContentDictionary: aDictionary [
+	super fillPostContentDictionary: aDictionary.
+	aDictionary
+		at: 'cmd' put: 'listPriorities'
 ]

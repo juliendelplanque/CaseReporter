@@ -7,10 +7,9 @@ Class {
 	#category : #'FogBugz-Core-Commands'
 }
 
-{ #category : #printing }
-FGBListCategoriesCommand >> printOn: aStream [
-
-	aStream
-		nextPutAll:
-			('{"cmd": "listCategories","token": "<1s>"}' expandMacrosWith: token asString)
+{ #category : #filling }
+FGBListCategoriesCommand >> fillPostContentDictionary: aDictionary [
+	super fillPostContentDictionary: aDictionary.
+	aDictionary
+		at: 'cmd' put: 'listCategories'
 ]

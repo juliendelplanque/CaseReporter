@@ -7,10 +7,9 @@ Class {
 	#category : #'FogBugz-Core-Commands'
 }
 
-{ #category : #printing }
-FGBLogoutCommand >> printOn: aStream [
-
-	aStream
-		nextPutAll:
-			('{"cmd": "logoff","token": "<1s>"}' expandMacrosWith: token asString)
+{ #category : #filling }
+FGBLogoutCommand >> fillPostContentDictionary: aDictionary [
+	super fillPostContentDictionary: aDictionary.
+	aDictionary
+		at: 'cmd' put: 'logoff'
 ]

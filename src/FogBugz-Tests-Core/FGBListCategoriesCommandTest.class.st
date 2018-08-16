@@ -19,7 +19,7 @@ FGBListCategoriesCommandTest >> setUp [
 
 { #category : #tests }
 FGBListCategoriesCommandTest >> testInstanceCreation [
-	self assert: command printString equals: '{"cmd": "listCategories","token": "foo42"}'
+	self assert: command asPostContentDictionary equals: {'cmd' -> 'listCategories' . 'token' -> 'foo42' } asDictionary
 ]
 
 { #category : #tests }

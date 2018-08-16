@@ -7,10 +7,9 @@ Class {
 	#category : #'FogBugz-Core-Commands'
 }
 
-{ #category : #printing }
-FGBListMilestonesCommand >> printOn: aStream [
-
-	aStream
-		nextPutAll:
-			('{"cmd": "listFixFors","token": "<1s>"}' expandMacrosWith: token asString)
+{ #category : #filling }
+FGBListMilestonesCommand >> fillPostContentDictionary: aDictionary [
+	super fillPostContentDictionary: aDictionary.
+	aDictionary
+		at: 'cmd' put: 'listFixFors'
 ]

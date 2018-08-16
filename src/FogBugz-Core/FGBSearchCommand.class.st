@@ -19,15 +19,12 @@ FGBSearchCommand class >> query: query [
 ]
 
 { #category : #printing }
-FGBSearchCommand >> printOn: aStream [
-
-	aStream
-		nextPutAll:
-			('{"cmd": "search",
-			   "token": "<1s>",
-			   "q": "<2s>",
-    			"cols": ["sTitle", "sStatus"]
-			}' expandMacrosWith: token asString with: query asString)
+FGBSearchCommand >> fillPostContentDictionary: aDictionary [
+	super fillPostContentDictionary: aDictionary.
+	aDictionary
+		at: 'cmd' put: 'search';
+		at: 'q' put: query asString;
+		at: 'cols' put: #('sTitle' 'sStatus')
 ]
 
 { #category : #accessing }

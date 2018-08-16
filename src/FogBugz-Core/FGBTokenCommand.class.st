@@ -10,6 +10,12 @@ Class {
 	#category : #'FogBugz-Core-Commands'
 }
 
+{ #category : #filling }
+FGBTokenCommand >> fillPostContentDictionary: aDictionary [
+	aDictionary
+		at: 'token' put: token
+]
+
 { #category : #testing }
 FGBTokenCommand >> requiresSession [
 

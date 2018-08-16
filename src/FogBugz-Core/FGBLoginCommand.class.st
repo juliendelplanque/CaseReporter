@@ -31,6 +31,14 @@ FGBLoginCommand >> email: anObject [
 	email := anObject
 ]
 
+{ #category : #printing }
+FGBLoginCommand >> fillPostContentDictionary: aDictionary [
+	aDictionary
+		at: 'cmd' put: 'logon';
+		at: 'email' put: email;
+		at: 'password' put: password
+]
+
 { #category : #accessing }
 FGBLoginCommand >> password [
 	^ password
@@ -39,12 +47,4 @@ FGBLoginCommand >> password [
 { #category : #accessing }
 FGBLoginCommand >> password: anObject [
 	password := anObject
-]
-
-{ #category : #printing }
-FGBLoginCommand >> printOn: aStream [
-
-	aStream
-		nextPutAll:
-			('{"cmd": "logon","email": "<1s>","password": "<2s>"}' expandMacrosWith: email with: password)
 ]

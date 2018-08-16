@@ -7,10 +7,11 @@ Class {
 	#category : #'FogBugz-Core-Commands'
 }
 
-{ #category : #printing }
-FGBListPeopleCommand >> printOn: aStream [
-
-	aStream
-		nextPutAll:
-			('{"cmd": "listPeople", "fIncludeNormal":1, "fIncludeVirtual": 1, "token": "<1s>"}' expandMacrosWith: token asString)
+{ #category : #filling }
+FGBListPeopleCommand >> fillPostContentDictionary: aDictionary [
+	super fillPostContentDictionary: aDictionary.
+	aDictionary
+		at: 'cmd' put: 'listPeople';
+		at: 'fIncludeNormal' put: 1;
+		at: 'fIncludeVirtual' put: 1
 ]
