@@ -35,15 +35,14 @@ FBGOpenCaseForClass >> execute [
 	| client |
 	client := FogBugzClient getWorkingClientByAskingUserOrNil.
 	client ifNil: [ ^ self ].
-	[
-		FGBCaseCreator new
-			contentTemplate: ('The following issue has been found in {1} class:
+	FGBCaseCreator new
+		contentTemplate:
+			('The following issue has been found in {1} class:
 
 The following code snippet(s) allows to reproduce the issue:
-' format: { classConcerned name });
-			adaptToClient: client;
-			openWithSpec
-	] ensure: [ client logout ].
+' format: {classConcerned name});
+		adaptToClient: client;
+		openWithSpec
 ]
 
 { #category : #execution }
