@@ -7,6 +7,15 @@ Class {
 	#category : #'FogBugz-Core-Model'
 }
 
+{ #category : #example }
+FGBPriority class >> example [
+	^ self new
+		id: 5;
+		name: 'Important';
+		isDefault: true;
+		yourself
+]
+
 { #category : #'instance creation' }
 FGBPriority class >> fromDictionary: aDictionary [
 	^ self new

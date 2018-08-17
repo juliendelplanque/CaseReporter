@@ -7,6 +7,15 @@ Class {
 	#category : #'FogBugz-Core-Model'
 }
 
+{ #category : #example }
+FGBArea class >> example [
+	^ self new
+		name: 'Foo';
+		id: 1;
+		projectId: 6;
+		yourself
+]
+
 { #category : #'instance creation' }
 FGBArea class >> fromDictionary: aDictionary [
 	^ self new

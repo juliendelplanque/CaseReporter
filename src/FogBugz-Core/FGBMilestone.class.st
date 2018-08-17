@@ -7,6 +7,15 @@ Class {
 	#category : #'FogBugz-Core-Model'
 }
 
+{ #category : #example }
+FGBMilestone class >> example [
+	^ self new
+		id: 4;
+		name: 'Soon';
+		projectId: 5;
+		yourself
+]
+
 { #category : #'instance creation' }
 FGBMilestone class >> fromDictionary: aDictionary [
 	^ self new

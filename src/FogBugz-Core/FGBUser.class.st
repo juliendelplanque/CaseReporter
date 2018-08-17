@@ -7,6 +7,15 @@ Class {
 	#category : #'FogBugz-Core-Model'
 }
 
+{ #category : #example }
+FGBUser class >> example [
+	^ self new
+		id: 8;
+		name: 'John Doe';
+		isVirtual: false;
+		yourself
+]
+
 { #category : #'instance creation' }
 FGBUser class >> fromDictionary: aDictionary [
 	^ self new

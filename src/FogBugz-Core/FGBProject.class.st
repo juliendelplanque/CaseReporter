@@ -8,6 +8,16 @@ Class {
 	#category : #'FogBugz-Core-Model'
 }
 
+{ #category : #example }
+FGBProject class >> example [
+	^ self new
+		id: 6;
+		name: 'My project';
+		defaultAssigneeId: 8;
+		isInbox: false;
+		yourself
+]
+
 { #category : #'instance creation' }
 FGBProject class >> fromDictionary: aDictionary [
 	^ self new

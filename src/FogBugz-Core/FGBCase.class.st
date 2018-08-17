@@ -17,6 +17,22 @@ Class {
 	#category : #'FogBugz-Core-Model'
 }
 
+{ #category : #example }
+FGBCase class >> example [
+	^ self new
+		id: 2;
+		title: 'Short case description';
+		content: 'Long case description';
+		status: FGBStatus example;
+		project: FGBProject example;
+		priority: FGBPriority example;
+		milestone: FGBMilestone example;
+		category: FGBCategory example;
+		assignee: FGBUser example;
+		area: FGBArea example;
+		yourself
+]
+
 { #category : #'instance creation' }
 FGBCase class >> fromDictionary: aCollection [ 
 	|case|

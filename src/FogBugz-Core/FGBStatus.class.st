@@ -8,6 +8,16 @@ Class {
 	#category : #'FogBugz-Core-Model'
 }
 
+{ #category : #example }
+FGBStatus class >> example [
+	^ self new
+		id: 7;
+		name: 'TODO';
+		categoryId: 3;
+		orderIndex: 1;
+		yourself
+]
+
 { #category : #'instance creation' }
 FGBStatus class >> fromDictionary: aDictionary [
 	^ self new
