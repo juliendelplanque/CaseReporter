@@ -15,7 +15,7 @@ Class {
 	#classInstVars : [
 		'credentials'
 	],
-	#category : #'FogBugz-Core-Base'
+	#category : #'FogBugz-Core-Client'
 }
 
 { #category : #accessing }
