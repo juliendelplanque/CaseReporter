@@ -16,11 +16,8 @@ FGBLoginCommandTest >> setUp [
 ]
 
 { #category : #tests }
-FGBLoginCommandTest >> testInstanceCreation [
-
-	| cmd |
-	cmd := FGBLoginCommand loginUser: 'abc@def.com' password: 'pass'.
-	self assert: cmd asPostContentDictionary equals: { 'cmd' -> 'logon' . 'email' -> 'abc@def.com' . 'password' -> 'pass'} asDictionary
+FGBLoginCommandTest >> testAsPostContentDictionary [
+	self assert: command asPostContentDictionary equals: { 'cmd' -> 'logon' . 'email' -> 'abc@def.com' . 'password' -> 'pass'} asDictionary
 ]
 
 { #category : #tests }

@@ -18,7 +18,7 @@ FGBListProjectsCommandTest >> setUp [
 ]
 
 { #category : #tests }
-FGBListProjectsCommandTest >> testInstanceCreation [
+FGBListProjectsCommandTest >> testAsPostContentDictionary [
 	self assert: command asPostContentDictionary equals: { 'cmd' -> 'listProjects' . 'token' -> 'foo42'} asDictionary
 ]
 

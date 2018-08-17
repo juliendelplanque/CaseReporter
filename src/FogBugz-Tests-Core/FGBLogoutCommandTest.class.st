@@ -15,11 +15,8 @@ FGBLogoutCommandTest >> setUp [
 ]
 
 { #category : #tests }
-FGBLogoutCommandTest >> testInstanceCreation [
-
-	| cmd |
-	cmd := FGBLogoutCommand new token: 'pljl6316cjgv5h3cnmntbck295gf47'.
-	self assert: cmd asPostContentDictionary equals: { 'cmd' -> 'logoff' . 'token' -> 'pljl6316cjgv5h3cnmntbck295gf47' } asDictionary
+FGBLogoutCommandTest >> testAsPostContentDictionary [
+	self assert: command asPostContentDictionary equals: { 'cmd' -> 'logoff' . 'token' -> 'pljl6316cjgv5h3cnmntbck295gf47' } asDictionary
 ]
 
 { #category : #tests }
