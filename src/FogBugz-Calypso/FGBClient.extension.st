@@ -1,15 +1,15 @@
-Extension { #name : #FogBugzClient }
+Extension { #name : #FGBClient }
 
 { #category : #'*FogBugz-Calypso' }
-FogBugzClient class >> getWorkingClientByAskingUser [
+FGBClient class >> getWorkingClientByAskingUser [
 	| potentialCredentials client |
 	client := nil.
-	potentialCredentials := FogBugzClient credentials.
+	potentialCredentials := FGBClient credentials.
 	[ client isNil ] whileTrue: [
 		potentialCredentials ifNil: [ potentialCredentials := FGBLoginDialogModel getCredentials ].
 		potentialCredentials ifNil: [ FGBUserCancelledLogin signal ].
-		[ client := FogBugzClient loginUser: potentialCredentials key password: potentialCredentials value.
-		  FogBugzClient credentials: potentialCredentials ]
+		[ client := FGBClient loginUser: potentialCredentials key password: potentialCredentials value.
+		  FGBClient credentials: potentialCredentials ]
 			on: Error
 			do: [ :err |
 				potentialCredentials := nil.

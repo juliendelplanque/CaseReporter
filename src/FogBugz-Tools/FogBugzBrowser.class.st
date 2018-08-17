@@ -244,7 +244,7 @@ FogBugzBrowser >> login [
 	|cr fog|
 	cr :=	FGBLoginDialogModel getCredentials.
 	cr ifNil: [ ^self ].
-	fog := FogBugzClient loginUser: cr key password: cr value.
+	fog := FGBClient loginUser: cr key password: cr value.
 	fog isLoggedIn 
 		ifTrue: [ client := fog.
 			self statusBar label: 'Connected' ]

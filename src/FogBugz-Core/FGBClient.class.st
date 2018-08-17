@@ -6,10 +6,11 @@ https://pharo.fogbugz.com/f/
 See class side example methods
 "
 Class {
-	#name : #FogBugzClient,
+	#name : #FGBClient,
 	#superclass : #Object,
 	#instVars : [
-		'token'
+		'token',
+		'jsonAPILocation'
 	],
 	#classInstVars : [
 		'credentials'
@@ -18,34 +19,39 @@ Class {
 }
 
 { #category : #accessing }
-FogBugzClient class >> credentials [
+FGBClient class >> credentials [
 	^ credentials
 ]
 
 { #category : #accessing }
-FogBugzClient class >> credentials: anObject [
+FGBClient class >> credentials: anObject [
 	credentials := anObject
 ]
 
 { #category : #examples }
-FogBugzClient class >> example [
+FGBClient class >> example [
 	
 	|client|
-	client := FogBugzClient loginUser: 'abc@def.com' password: 'secret'.
+	client := FGBClient loginUser: 'abc@def.com' password: 'secret'.
 	(client query: 'UFFI') inspect.
 	client logout
 ]
 
 { #category : #'instance creation' }
-FogBugzClient class >> loginUser: email password: password [
+FGBClient class >> loginUser: email password: password [
 
 	^(self new)
 		login: email password: password;
 		yourself
 ]
 
+{ #category : #accessing }
+FGBClient class >> pharoJSONAPILocation [
+	^ 'https://pharo.fogbugz.com/f/api/0/jsonapi'
+]
+
 { #category : #'private - utilities' }
-FogBugzClient >> executeCommand: aCommand [
+FGBClient >> executeCommand: aCommand [
 	aCommand requiresSession ifTrue: [ 
 		aCommand token: token ].
 	^ STON
@@ -56,7 +62,7 @@ FogBugzClient >> executeCommand: aCommand [
 ]
 
 { #category : #'private - utilities' }
-FogBugzClient >> handleErrorsIn: aDictionary [
+FGBClient >> handleErrorsIn: aDictionary [
 	(aDictionary at: #errors)
 		ifNotEmpty: [ :rawErrors |
 			FGBErrorsList new
@@ -68,18 +74,23 @@ FogBugzClient >> handleErrorsIn: aDictionary [
 ]
 
 { #category : #testing }
-FogBugzClient >> isLoggedIn [
+FGBClient >> isLoggedIn [
 
 	^token notNil
 ]
 
-{ #category : #'private - accessing' }
-FogBugzClient >> jsonAPILocation [
-	^'https://pharo.fogbugz.com/f/api/0/jsonapi'
+{ #category : #accessing }
+FGBClient >> jsonAPILocation [
+	^ jsonAPILocation ifNil: [ jsonAPILocation := self class pharoJSONAPILocation ]
+]
+
+{ #category : #accessing }
+FGBClient >> jsonAPILocation: anObject [
+	jsonAPILocation := anObject
 ]
 
 { #category : #interacting }
-FogBugzClient >> listAreas [
+FGBClient >> listAreas [
 	| rawResult |
 	rawResult := self executeCommand: (FGBListAreasCommand new).
 
@@ -91,7 +102,7 @@ FogBugzClient >> listAreas [
 ]
 
 { #category : #interacting }
-FogBugzClient >> listCategories [
+FGBClient >> listCategories [
 	| rawResult |
 	rawResult := self executeCommand: (FGBListCategoriesCommand new).
 
@@ -103,7 +114,7 @@ FogBugzClient >> listCategories [
 ]
 
 { #category : #interacting }
-FogBugzClient >> listMilestones [
+FGBClient >> listMilestones [
 	| rawResult |
 	rawResult := self executeCommand: (FGBListMilestonesCommand new).
 	
@@ -114,7 +125,7 @@ FogBugzClient >> listMilestones [
 ]
 
 { #category : #interacting }
-FogBugzClient >> listPeople [
+FGBClient >> listPeople [
 	| rawResult |
 	rawResult := self executeCommand: (FGBListPeopleCommand new).
 
@@ -126,7 +137,7 @@ FogBugzClient >> listPeople [
 ]
 
 { #category : #interacting }
-FogBugzClient >> listPriorities [
+FGBClient >> listPriorities [
 	| rawResult |
 	rawResult := self executeCommand: (FGBListPrioritiesCommand new).
 
@@ -138,7 +149,7 @@ FogBugzClient >> listPriorities [
 ]
 
 { #category : #interacting }
-FogBugzClient >> listProjects [
+FGBClient >> listProjects [
 	| rawResult |
 	rawResult := self executeCommand: (FGBListProjectsCommand new).
 
@@ -150,7 +161,7 @@ FogBugzClient >> listProjects [
 ]
 
 { #category : #interacting }
-FogBugzClient >> listStatuses [
+FGBClient >> listStatuses [
 	| rawResult |
 	rawResult := self executeCommand: (FGBListStatusesCommand new).
 
@@ -162,7 +173,7 @@ FogBugzClient >> listStatuses [
 ]
 
 { #category : #private }
-FogBugzClient >> login: email password: password [
+FGBClient >> login: email password: password [
 	| rawResult |
 	rawResult := self
 		executeCommand: (FGBLoginCommand loginUser: email password: password).
@@ -172,7 +183,7 @@ FogBugzClient >> login: email password: password [
 ]
 
 { #category : #authentication }
-FogBugzClient >> logout [
+FGBClient >> logout [
 
 	| rawResult |
 	rawResult := self executeCommand: FGBLogoutCommand new.
@@ -182,7 +193,7 @@ FogBugzClient >> logout [
 ]
 
 { #category : #interacting }
-FogBugzClient >> newCase: aFogBugzCase [
+FGBClient >> newCase: aFogBugzCase [
 	| rawResult |
 	rawResult := self executeCommand: (
 							FGBNewCaseCommand new
@@ -193,7 +204,7 @@ FogBugzClient >> newCase: aFogBugzCase [
 ]
 
 { #category : #interacting }
-FogBugzClient >> query: aString [
+FGBClient >> query: aString [
 
 	| rawResult |
 	rawResult := self executeCommand: (FGBSearchCommand query: aString).

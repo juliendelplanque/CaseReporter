@@ -33,7 +33,7 @@ FBGOpenCaseForMethod class >> fullBrowserTabActivation [
 { #category : #execution }
 FBGOpenCaseForMethod >> execute [
 	| client |
-	client := [ FogBugzClient getWorkingClientByAskingUser ] on: FGBUserCancelledLogin do: [ 
+	client := [ FGBClient getWorkingClientByAskingUser ] on: FGBUserCancelledLogin do: [ 
 		UIManager default inform: 'Log-in cancelled.'.
 		^ self ].
 	FGBCaseCreator openForClient: client withTemplate: 

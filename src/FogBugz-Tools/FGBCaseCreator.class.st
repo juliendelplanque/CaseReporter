@@ -68,7 +68,7 @@ FGBCaseCreator class >> defaultSpec [
 { #category : #'instance creation' }
 FGBCaseCreator class >> example [
 	| client |
-	client := [ FogBugzClient getWorkingClientByAskingUser ] on: FGBUserCancelledLogin do: [ "abort" ^ self ].
+	client := [ FGBClient getWorkingClientByAskingUser ] on: FGBUserCancelledLogin do: [ "abort" ^ self ].
 	^ self openForClient: client withTemplate: 'A custom template for issue description.'
 ]
 
