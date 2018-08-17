@@ -20,11 +20,15 @@ FGBNewCaseCommand >> case: anObject [
 	case := anObject
 ]
 
+{ #category : #accessing }
+FGBNewCaseCommand >> commandName [
+	^ 'new'
+]
+
 { #category : #filling }
 FGBNewCaseCommand >> fillPostContentDictionary: aDictionary [
 	super fillPostContentDictionary: aDictionary.
 	aDictionary
-		at: 'cmd' put: 'new';
 		at: 'sTitle' put: self case title;
 		at: 'sEvent' put: self case content asString;
 		at: 'sCategory' put: self case category name;

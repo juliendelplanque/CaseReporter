@@ -21,6 +21,11 @@ FGBLoginCommand class >> loginUser: email password: password [
 		
 ]
 
+{ #category : #printing }
+FGBLoginCommand >> commandName [
+	^ 'logon'
+]
+
 { #category : #accessing }
 FGBLoginCommand >> email [
 	^ email
@@ -33,8 +38,8 @@ FGBLoginCommand >> email: anObject [
 
 { #category : #printing }
 FGBLoginCommand >> fillPostContentDictionary: aDictionary [
+	super fillPostContentDictionary: aDictionary.
 	aDictionary
-		at: 'cmd' put: 'logon';
 		at: 'email' put: email;
 		at: 'password' put: password
 ]

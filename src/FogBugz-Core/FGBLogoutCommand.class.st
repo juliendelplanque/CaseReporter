@@ -7,9 +7,7 @@ Class {
 	#category : #'FogBugz-Core-Commands'
 }
 
-{ #category : #filling }
-FGBLogoutCommand >> fillPostContentDictionary: aDictionary [
-	super fillPostContentDictionary: aDictionary.
-	aDictionary
-		at: 'cmd' put: 'logoff'
+{ #category : #accessing }
+FGBLogoutCommand >> commandName [
+	^ 'logoff'
 ]

@@ -7,9 +7,7 @@ Class {
 	#category : #'FogBugz-Core-Commands'
 }
 
-{ #category : #filling }
-FGBListAreasCommand >> fillPostContentDictionary: aDictionary [
-	super fillPostContentDictionary: aDictionary.
-	aDictionary
-		at: 'cmd' put: 'listAreas'
+{ #category : #accessing }
+FGBListAreasCommand >> commandName [
+	^ 'listAreas'
 ]

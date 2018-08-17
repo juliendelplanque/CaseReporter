@@ -18,11 +18,15 @@ FGBSearchCommand class >> query: query [
 		yourself
 ]
 
+{ #category : #accessing }
+FGBSearchCommand >> commandName [
+	^ 'search'
+]
+
 { #category : #printing }
 FGBSearchCommand >> fillPostContentDictionary: aDictionary [
 	super fillPostContentDictionary: aDictionary.
 	aDictionary
-		at: 'cmd' put: 'search';
 		at: 'q' put: query asString;
 		at: 'cols' put: #('sTitle' 'sStatus')
 ]

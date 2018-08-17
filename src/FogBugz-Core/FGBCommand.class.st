@@ -22,10 +22,16 @@ FGBCommand >> asPostContentJSON [
 	^ STONJSON toString: self asPostContentDictionary
 ]
 
+{ #category : #accessing }
+FGBCommand >> commandName [
+	^ self subclassResponsibility
+]
+
 { #category : #filling }
 FGBCommand >> fillPostContentDictionary: aDictionary [
 	"The responsibility of this method is to add required keys-values to the dictionary that will be used to generate post content."
-	self subclassResponsibility
+	aDictionary
+		at: 'cmd' put: self commandName
 ]
 
 { #category : #printing }

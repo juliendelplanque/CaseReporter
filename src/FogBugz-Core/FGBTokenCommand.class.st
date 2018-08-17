@@ -12,6 +12,7 @@ Class {
 
 { #category : #filling }
 FGBTokenCommand >> fillPostContentDictionary: aDictionary [
+	super fillPostContentDictionary: aDictionary.
 	aDictionary
 		at: 'token' put: token
 ]

@@ -7,9 +7,7 @@ Class {
 	#category : #'FogBugz-Core-Commands'
 }
 
-{ #category : #filling }
-FGBListPrioritiesCommand >> fillPostContentDictionary: aDictionary [
-	super fillPostContentDictionary: aDictionary.
-	aDictionary
-		at: 'cmd' put: 'listPriorities'
+{ #category : #accessing }
+FGBListPrioritiesCommand >> commandName [
+	^ 'listPriorities'
 ]
