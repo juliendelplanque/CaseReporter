@@ -9,8 +9,7 @@ Class {
 	#name : #FogBugzClient,
 	#superclass : #Object,
 	#instVars : [
-		'token',
-		'errors'
+		'token'
 	],
 	#classInstVars : [
 		'credentials'
@@ -45,15 +44,8 @@ FogBugzClient class >> loginUser: email password: password [
 		yourself
 ]
 
-{ #category : #'private - accessing' }
-FogBugzClient >> errors [
-
-	^errors 
-]
-
 { #category : #'private - utilities' }
 FogBugzClient >> executeCommand: aCommand [
-	errors := nil.
 	aCommand requiresSession ifTrue: [ 
 		aCommand token: token ].
 	^ STON
@@ -61,6 +53,18 @@ FogBugzClient >> executeCommand: aCommand [
 			(ZnClient new
 				post: self jsonAPILocation
 				contents: aCommand asPostContentJSON)
+]
+
+{ #category : #'private - utilities' }
+FogBugzClient >> handleErrorsIn: aDictionary [
+	(aDictionary at: #errors)
+		ifNotEmpty: [ :rawErrors |
+			FGBErrorsList new
+				errors: (rawErrors collect: [ :each |
+								Error new
+									messageText: (each at: #message);
+									yourself ]);
+				signal ]
 ]
 
 { #category : #testing }
@@ -79,11 +83,11 @@ FogBugzClient >> listAreas [
 	| rawResult |
 	rawResult := self executeCommand: (FGBListAreasCommand new).
 
-	(rawResult at: #errorCode) ifNil: [
-		(rawResult at: #data) ifNotEmpty: [ :data |
-			^ (data at: #areas) 
-				collect: [ :each | FGBArea fromDictionary: each ]]].
-	^ #()
+	(rawResult at: #errorCode) ifNotNil: [ self handleErrorsIn: rawResult ].
+	
+	^ (rawResult at: #data) ifNotEmpty: [ :data |
+		(data at: #areas) 
+				collect: [ :each | FGBArea fromDictionary: each ] ]
 ]
 
 { #category : #interacting }
@@ -91,11 +95,11 @@ FogBugzClient >> listCategories [
 	| rawResult |
 	rawResult := self executeCommand: (FGBListCategoriesCommand new).
 
-	(rawResult at: #errorCode) ifNil: [
-		(rawResult at: #data) ifNotEmpty: [ :data |
-			^ (data at: #categories) 
-				collect: [ :each | FGBCategory fromDictionary: each ]]].
-	^ #()
+	(rawResult at: #errorCode) ifNotNil: [ self handleErrorsIn: rawResult ].
+	
+	^ (rawResult at: #data) ifNotEmpty: [ :data |
+			(data at: #categories) 
+				collect: [ :each | FGBCategory fromDictionary: each ]]
 ]
 
 { #category : #interacting }
@@ -103,11 +107,10 @@ FogBugzClient >> listMilestones [
 	| rawResult |
 	rawResult := self executeCommand: (FGBListMilestonesCommand new).
 	
-	(rawResult at: #errorCode) ifNil: [
-		(rawResult at: #data) ifNotEmpty: [ :data |
-			^ (data at: #fixfors) 
-				collect: [ :each | FGBMilestone fromDictionary: each ]]].
-	^ #()
+	(rawResult at: #errorCode) ifNotNil: [ self handleErrorsIn: rawResult ].
+	^ (rawResult at: #data) ifNotEmpty: [ :data |
+			(data at: #fixfors)
+				collect: [ :each | FGBMilestone fromDictionary: each ]]
 ]
 
 { #category : #interacting }
@@ -115,11 +118,11 @@ FogBugzClient >> listPeople [
 	| rawResult |
 	rawResult := self executeCommand: (FGBListPeopleCommand new).
 
-	(rawResult at: #errorCode) ifNil: [
-		(rawResult at: #data) ifNotEmpty: [ :data |
-			^ (data at: #people) 
-				collect: [ :each | FGBUser fromDictionary: each ]]].
-	^ #()
+	(rawResult at: #errorCode) ifNotNil: [ self handleErrorsIn: rawResult ].
+	
+	^ (rawResult at: #data) ifNotEmpty: [ :data |
+			(data at: #people) 
+				collect: [ :each | FGBUser fromDictionary: each ]]
 ]
 
 { #category : #interacting }
@@ -127,11 +130,11 @@ FogBugzClient >> listPriorities [
 	| rawResult |
 	rawResult := self executeCommand: (FGBListPrioritiesCommand new).
 
-	(rawResult at: #errorCode) ifNil: [
-		(rawResult at: #data) ifNotEmpty: [ :data |
-			^ (data at: #priorities) 
-				collect: [ :each | FGBPriority fromDictionary: each ]]].
-	^ #()
+	(rawResult at: #errorCode) ifNotNil: [ self handleErrorsIn: rawResult ].
+	
+	^ (rawResult at: #data) ifNotEmpty: [ :data |
+			(data at: #priorities) 
+				collect: [ :each | FGBPriority fromDictionary: each ]]
 ]
 
 { #category : #interacting }
@@ -139,11 +142,11 @@ FogBugzClient >> listProjects [
 	| rawResult |
 	rawResult := self executeCommand: (FGBListProjectsCommand new).
 
-	(rawResult at: #errorCode) ifNil: [
-		(rawResult at: #data) ifNotEmpty: [ :data |
-			^ (data at: #projects) 
-				collect: [ :each | FGBProject fromDictionary: each ]]].
-	^ #()
+	(rawResult at: #errorCode) ifNotNil: [ self handleErrorsIn: rawResult ].
+	
+	^ (rawResult at: #data) ifNotEmpty: [ :data |
+		(data at: #projects) 
+			collect: [ :each | FGBProject fromDictionary: each ] ].
 ]
 
 { #category : #interacting }
@@ -151,11 +154,11 @@ FogBugzClient >> listStatuses [
 	| rawResult |
 	rawResult := self executeCommand: (FGBListStatusesCommand new).
 
-	(rawResult at: #errorCode) ifNil: [
-		(rawResult at: #data) ifNotEmpty: [ :data |
-			^ (data at: #statuses) 
-				collect: [ :each | FGBStatus fromDictionary: each ]]].
-	^ #()
+	(rawResult at: #errorCode) ifNotNil: [ self handleErrorsIn: rawResult ].
+	
+	^ (rawResult at: #data) ifNotEmpty: [ :data |
+		(data at: #statuses) 
+			collect: [ :each | FGBStatus fromDictionary: each ]].
 ]
 
 { #category : #private }
@@ -164,17 +167,18 @@ FogBugzClient >> login: email password: password [
 	rawResult := self
 		executeCommand: (FGBLoginCommand loginUser: email password: password).
 	(rawResult at: #data)
-		ifEmpty: [ self error: ((rawResult at: #errors) first at: #message) ]
-		ifNotEmpty: [ :x | token := x at: #token ]
+		ifEmpty: [ self handleErrorsIn: rawResult ]
+		ifNotEmpty: [ :data | token := data at: #token ]
 ]
 
 { #category : #authentication }
 FogBugzClient >> logout [
 
-	| res |
-	res := self executeCommand: FGBLogoutCommand new.
-	(res at: #errorCode) isNil ifTrue: [token := nil. ^self].
-	self readErrorsFrom: res
+	| rawResult |
+	rawResult := self executeCommand: FGBLogoutCommand new.
+	(rawResult at: #errorCode)
+		ifNotNil: [ self handleErrorsIn: rawResult ].
+	token := nil
 ]
 
 { #category : #interacting }
@@ -185,31 +189,16 @@ FogBugzClient >> newCase: aFogBugzCase [
 									case: aFogBugzCase;
 									yourself).
 	(rawResult at: #errorCode)
-		ifNil: [ ^ self ].
-	
-	self error: ((rawResult at: #errors) first at: #message)
+		 ifNotNil: [ self handleErrorsIn: rawResult ]
 ]
 
 { #category : #interacting }
 FogBugzClient >> query: aString [
 
-	| res |
-	res := self executeCommand: (FGBSearchCommand query: aString).
-   (res at: #errorCode) ifNil: [
-		(res at: #data) ifNotEmpty: [:c |
-			^(c at: #cases) 
-				collect: [:each | FGBCase fromDictionary: each ]]].
-	^#()
-]
-
-{ #category : #'private - utilities' }
-FogBugzClient >> readErrorsFrom: ston [
-	errors := (ston at: #errors) collect: [ :each | each at: #message ]
-]
-
-{ #category : #accessing }
-FogBugzClient >> summarizedErrors [
-
-	^String streamContents: [:s | 
-		self errors do: [:each | s nextPutAll: each; cr ]	]
+	| rawResult |
+	rawResult := self executeCommand: (FGBSearchCommand query: aString).
+   (rawResult at: #errorCode) ifNotNil: [ self handleErrorsIn: rawResult ].
+	
+	^ (rawResult at: #data) ifNotEmpty: [:c |
+		(c at: #cases) collect: [ :each | FGBCase fromDictionary: each ] ]
 ]
