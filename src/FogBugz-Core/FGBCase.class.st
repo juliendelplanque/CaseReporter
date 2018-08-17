@@ -2,10 +2,9 @@
 A case in FogBugz
 "
 Class {
-	#name : #FogBugzCase,
+	#name : #FGBCase,
 	#superclass : #FGBObject,
 	#instVars : [
-		'title',
 		'status',
 		'content',
 		'project',
@@ -19,7 +18,7 @@ Class {
 }
 
 { #category : #'instance creation' }
-FogBugzCase class >> fromDictionary: aCollection [ 
+FGBCase class >> fromDictionary: aCollection [ 
 	|case|
 	case := self new.
 	case 
@@ -30,84 +29,74 @@ FogBugzCase class >> fromDictionary: aCollection [
 ]
 
 { #category : #comparision }
-FogBugzCase >> <= anotherCase [
+FGBCase >> <= anotherCase [
 
 	^self id <= anotherCase id
 ]
 
 { #category : #accessing }
-FogBugzCase >> area [
+FGBCase >> area [
 	^ area
 ]
 
 { #category : #accessing }
-FogBugzCase >> area: anObject [
+FGBCase >> area: anObject [
 	area := anObject
 ]
 
 { #category : #conversion }
-FogBugzCase >> asURL [
+FGBCase >> asURL [
 	^'https://pharo.fogbugz.com/f/cases/', self id asString
 ]
 
 { #category : #accessing }
-FogBugzCase >> assignee [
+FGBCase >> assignee [
 	^ assignee
 ]
 
 { #category : #accessing }
-FogBugzCase >> assignee: anObject [
+FGBCase >> assignee: anObject [
 	assignee := anObject
 ]
 
 { #category : #accessing }
-FogBugzCase >> category [
+FGBCase >> category [
 	^ category
 ]
 
 { #category : #accessing }
-FogBugzCase >> category: anObject [
+FGBCase >> category: anObject [
 	category := anObject
 ]
 
 { #category : #accessing }
-FogBugzCase >> content [
+FGBCase >> content [
 	^ content
 ]
 
 { #category : #accessing }
-FogBugzCase >> content: anObject [
+FGBCase >> content: anObject [
 	content := anObject
 ]
 
 { #category : #comparision }
-FogBugzCase >> hash [
+FGBCase >> hash [
 	self id ifNil: [ ^super hash ].
 	^self id hash
 ]
 
 { #category : #accessing }
-FogBugzCase >> milestone [
+FGBCase >> milestone [
 	^ milestone
 ]
 
 { #category : #accessing }
-FogBugzCase >> milestone: anObject [
+FGBCase >> milestone: anObject [
 	milestone := anObject
 ]
 
-{ #category : #accessing }
-FogBugzCase >> name [
-	^ self title
-]
-
-{ #category : #accessing }
-FogBugzCase >> name: aString [
-	^ self shouldNotImplement "Use #title instead."
-]
-
 { #category : #printing }
-FogBugzCase >> printOn: aStream [
+FGBCase >> printOn: aStream [
 
 	aStream 
 		nextPutAll: self id asString;
@@ -116,44 +105,44 @@ FogBugzCase >> printOn: aStream [
 ]
 
 { #category : #accessing }
-FogBugzCase >> priority [
+FGBCase >> priority [
 	^ priority
 ]
 
 { #category : #accessing }
-FogBugzCase >> priority: anObject [
+FGBCase >> priority: anObject [
 	priority := anObject
 ]
 
 { #category : #accessing }
-FogBugzCase >> project [
+FGBCase >> project [
 	^ project
 ]
 
 { #category : #accessing }
-FogBugzCase >> project: anObject [
+FGBCase >> project: anObject [
 	project := anObject
 ]
 
 { #category : #accessing }
-FogBugzCase >> status [
+FGBCase >> status [
 
 	^status
 ]
 
 { #category : #accessing }
-FogBugzCase >> status: aSymbol [
+FGBCase >> status: aSymbol [
 	status := aSymbol
 ]
 
 { #category : #accessing }
-FogBugzCase >> title [
+FGBCase >> title [
 
-	^title
+	^ self name
 ]
 
 { #category : #accessing }
-FogBugzCase >> title: aString [ 
+FGBCase >> title: aString [ 
 
-	title := aString
+	self name: aString
 ]

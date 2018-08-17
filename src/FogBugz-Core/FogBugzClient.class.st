@@ -198,7 +198,7 @@ FogBugzClient >> query: aString [
    (res at: #errorCode) ifNil: [
 		(res at: #data) ifNotEmpty: [:c |
 			^(c at: #cases) 
-				collect: [:each | FogBugzCase fromDictionary: each ]]].
+				collect: [:each | FGBCase fromDictionary: each ]]].
 	^#()
 ]
 

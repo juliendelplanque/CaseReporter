@@ -136,7 +136,7 @@ FGBCaseCreator >> areasDropList [
 { #category : #api }
 FGBCaseCreator >> asFogBugzCase [
 	self checkUserInputs.
-	^ FogBugzCase new
+	^ FGBCase new
 		title: self caseTitle;
 		content: self content;
 		status: self statusSelected;
