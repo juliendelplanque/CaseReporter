@@ -177,8 +177,11 @@ FGBClient >> login: email password: password [
 	| rawResult |
 	rawResult := self
 		executeCommand: (FGBLoginCommand loginUser: email password: password).
+	(rawResult at: #errorCode)
+		ifNotNil: [ self handleErrorsIn: rawResult ].
+		
 	(rawResult at: #data)
-		ifEmpty: [ self handleErrorsIn: rawResult ]
+		ifEmpty: [ self error: 'Unexpected error, empty data.' ]
 		ifNotEmpty: [ :data | token := data at: #token ]
 ]
 
