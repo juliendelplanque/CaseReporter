@@ -182,7 +182,12 @@ FGBClient >> listStatuses [
 			collect: [ :each | FGBStatus fromDictionary: each ]].
 ]
 
-{ #category : #private }
+{ #category : #authentication }
+FGBClient >> login: aCredential [
+	^ self login: aCredential login password: aCredential password
+]
+
+{ #category : #authentication }
 FGBClient >> login: email password: password [
 	| rawResult |
 	rawResult := self
