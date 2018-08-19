@@ -1,15 +1,17 @@
 Extension { #name : #FGBClient }
 
-{ #category : #'*FogBugz-Calypso' }
+{ #category : #'*FogBugz-Tools' }
 FGBClient class >> getWorkingClientByAskingUser [
+	"Return the default client if not nil, else interact with the user to get his login/password and create a working client."
 	| potentialCredentials client |
-	client := nil.
-	potentialCredentials := FGBClient credentials.
+	self default ifNotNil: [ ^ self default ].
+	client := self default.
+	potentialCredentials := nil.
 	[ client isNil ] whileTrue: [
 		potentialCredentials ifNil: [ potentialCredentials := FGBLoginDialogModel getCredentials ].
 		potentialCredentials ifNil: [ FGBUserCancelledLogin signal ].
-		[ client := FGBClient loginUser: potentialCredentials key password: potentialCredentials value.
-		  FGBClient credentials: potentialCredentials ]
+		[ client := self clientClass loginUser: potentialCredentials key password: potentialCredentials value.
+		  self default: client ]
 			on: Error
 			do: [ :err |
 				potentialCredentials := nil.
