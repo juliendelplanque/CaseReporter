@@ -1,3 +1,6 @@
+"
+I model a milestone for a project of the bugtracker.
+"
 Class {
 	#name : #FGBMilestone,
 	#superclass : #FGBObject,

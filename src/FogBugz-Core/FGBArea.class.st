@@ -1,3 +1,6 @@
+"
+I model the area of a project in the bugtracker.
+"
 Class {
 	#name : #FGBArea,
 	#superclass : #FGBObject,

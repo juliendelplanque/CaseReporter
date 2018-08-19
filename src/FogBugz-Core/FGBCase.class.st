@@ -1,5 +1,5 @@
 "
-A case in FogBugz
+I model a case of the bugtracker.
 "
 Class {
 	#name : #FGBCase,

@@ -1,3 +1,6 @@
+"
+I model a project in the bugtracker.
+"
 Class {
 	#name : #FGBProject,
 	#superclass : #FGBObject,

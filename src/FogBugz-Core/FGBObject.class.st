@@ -1,3 +1,10 @@
+"
+I am an abstract object retrieved from the REST API.
+
+I have an id and a name.
+
+I am not meant to be instantiated. Use my concrete subclasses.
+"
 Class {
 	#name : #FGBObject,
 	#superclass : #Object,

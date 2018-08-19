@@ -1,3 +1,6 @@
+"
+I model the category of a case in the bugtracker.
+"
 Class {
 	#name : #FGBCategory,
 	#superclass : #FGBObject,

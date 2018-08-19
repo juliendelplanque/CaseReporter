@@ -1,3 +1,6 @@
+"
+I model a user of the bugtracker.
+"
 Class {
 	#name : #FGBUser,
 	#superclass : #FGBObject,

@@ -1,3 +1,6 @@
+"
+I model the status of a case in the bugtracker.
+"
 Class {
 	#name : #FGBStatus,
 	#superclass : #FGBObject,

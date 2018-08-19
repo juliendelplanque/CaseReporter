@@ -1,3 +1,6 @@
+"
+I model the priority of a case in the bugtracker.
+"
 Class {
 	#name : #FGBPriority,
 	#superclass : #FGBObject,
