@@ -8,8 +8,8 @@ FGBClient class >> getWorkingClientByAskingUser [
 	client := self default.
 	potentialCredentials := nil.
 	[ client isNil ] whileTrue: [
-		potentialCredentials ifNil: [ potentialCredentials := FGBLoginDialogModel getCredentials ].
-		potentialCredentials ifNil: [ FGBUserCancelledLogin signal ].
+		potentialCredentials
+			ifNil: [ potentialCredentials := FGBLoginDialogModel getCredentials ].
 		[ client := self clientClass loginUser: potentialCredentials key password: potentialCredentials value.
 		  self default: client ]
 			on: Error

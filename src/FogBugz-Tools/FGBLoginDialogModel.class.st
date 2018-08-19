@@ -35,15 +35,13 @@ FGBLoginDialogModel class >> defaultSpec [
 
 { #category : #'instance creation' }
 FGBLoginDialogModel class >> getCredentials [
-	"self getCredentials"
-	<script>
-	
-  | login dialog |
-  login := self new.
-  dialog := login openDialogWithSpec.
-  dialog modalRelativeTo: self currentWorld.
-  dialog cancelled ifTrue: [ ^ nil ].
-  ^ login credentials
+	| login dialog |
+	login := self new.
+	dialog := login openDialogWithSpec.
+	dialog modalRelativeTo: self currentWorld.
+	dialog cancelled
+		ifTrue: [ FGBUserCancelledLogin signal ].
+	^ login credentials
 ]
 
 { #category : #defaults }
