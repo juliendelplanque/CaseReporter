@@ -10,7 +10,7 @@ FGBClient class >> getWorkingClientByAskingUser [
 	[ client isNil ] whileTrue: [
 		potentialCredentials
 			ifNil: [ potentialCredentials := FGBLoginDialogModel getCredentials ].
-		[ client := self clientClass loginUser: potentialCredentials key password: potentialCredentials value.
+		[ client := self clientClass login: potentialCredentials.
 		  self default: client ]
 			on: Error
 			do: [ :err |

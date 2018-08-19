@@ -41,13 +41,12 @@ FGBLoginDialogModel class >> getCredentials [
 	dialog modalRelativeTo: self currentWorld.
 	dialog cancelled
 		ifTrue: [ FGBUserCancelledLogin signal ].
-	^ login credentials
+	^ login asCredentials
 ]
 
-{ #category : #defaults }
-FGBLoginDialogModel >> credentials [
-  ^ usernameField text -> passwordField text
-
+{ #category : #converting }
+FGBLoginDialogModel >> asCredentials [
+	^ FGBCredentials login: self usernameField text password: self passwordField text
 ]
 
 { #category : #defaults }
