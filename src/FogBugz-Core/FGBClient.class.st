@@ -13,19 +13,24 @@ Class {
 		'jsonAPILocation'
 	],
 	#classInstVars : [
-		'credentials'
+		'default'
 	],
 	#category : #'FogBugz-Core-Client'
 }
 
 { #category : #accessing }
-FGBClient class >> credentials [
-	^ credentials
+FGBClient class >> clientClass [
+	^ FGBCachedClient
 ]
 
 { #category : #accessing }
-FGBClient class >> credentials: anObject [
-	credentials := anObject
+FGBClient class >> default [
+	^ default
+]
+
+{ #category : #accessing }
+FGBClient class >> default: anObject [
+	default := anObject
 ]
 
 { #category : #examples }
@@ -48,6 +53,11 @@ FGBClient class >> loginUser: email password: password [
 { #category : #accessing }
 FGBClient class >> pharoJSONAPILocation [
 	^ 'https://pharo.fogbugz.com/f/api/0/jsonapi'
+]
+
+{ #category : #reset }
+FGBClient class >> reset [
+	self default: nil
 ]
 
 { #category : #'private - utilities' }
