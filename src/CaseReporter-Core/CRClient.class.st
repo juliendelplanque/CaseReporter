@@ -101,6 +101,7 @@ CRClient >> jsonAPILocation: anObject [
 
 { #category : #interacting }
 CRClient >> listAreas [
+	<crDropList: 2 named: 'Area:'>
 	| rawResult |
 	rawResult := self executeCommand: (CRListAreasCommand new).
 
@@ -113,6 +114,7 @@ CRClient >> listAreas [
 
 { #category : #interacting }
 CRClient >> listCategories [
+	<crDropList: 4 named: 'Category:'>
 	| rawResult |
 	rawResult := self executeCommand: (CRListCategoriesCommand new).
 
@@ -125,6 +127,7 @@ CRClient >> listCategories [
 
 { #category : #interacting }
 CRClient >> listMilestones [
+	<crDropList: 3 named: 'Milestone:'>
 	| rawResult |
 	rawResult := self executeCommand: (CRListMilestonesCommand new).
 	
@@ -136,6 +139,7 @@ CRClient >> listMilestones [
 
 { #category : #interacting }
 CRClient >> listPeople [
+	<crDropList: 4 named: 'Assign to:'>
 	| rawResult |
 	rawResult := self executeCommand: (CRListPeopleCommand new).
 
@@ -160,6 +164,7 @@ CRClient >> listPriorities [
 
 { #category : #interacting }
 CRClient >> listProjects [
+	<crDropList: 1 named: 'Project'>
 	| rawResult |
 	rawResult := self executeCommand: (CRListProjectsCommand new).
 
@@ -172,6 +177,7 @@ CRClient >> listProjects [
 
 { #category : #interacting }
 CRClient >> listStatuses [
+	<crDropList: 5 named: 'Status:'>
 	| rawResult |
 	rawResult := self executeCommand: (CRListStatusesCommand new).
 
