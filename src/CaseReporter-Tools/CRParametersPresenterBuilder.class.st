@@ -11,19 +11,22 @@ Class {
 CRParametersPresenterBuilder >> build [
 	| dynamicModel layout |
 	dynamicModel := DynamicComposablePresenter new.
-	dynamicModel instantiatePresenters: self dropListsInstVarsNamesAndDropListPresenters.
+	dynamicModel instantiatePresenters: self widgetsInstVarsNamesAndPresenters.
 	
-	self dropListsInstVarsNames with: self clientDropListPragmas do: [ :instVarName :pragma |
+	self widgetsInstVarsNames with: self widgetsPragmas do: [ :instVarName :pragma |
 		(instVarName value: dynamicModel)
-			items: (pragma methodSelector value: self client) ].
+			items: (pragma methodSelector value: self client);
+			label: (pragma argumentAt: 3);
+			displayBlock: [ :item |
+				item crString ] ].
 		
 	layout := SpecLayout composed
 				newColumn: [ :c |
-					self dropListsInstVarsNames groupsOf: 3 atATimeDo: [ :instVars |
+					self widgetsInstVarsNames groupsOf: 3 atATimeDo: [ :instVars |
 						c
 							newRow: [ :r |
 								instVars do: [ :symbol |
-									r add: symbol ] ] ] ];
+									r add: symbol ] ] height: ComposablePresenter buttonHeight ] ];
 				yourself.
 	dynamicModel layout: layout.
 	^ dynamicModel
@@ -40,32 +43,28 @@ CRParametersPresenterBuilder >> client: anObject [
 ]
 
 { #category : #accessing }
-CRParametersPresenterBuilder >> clientDropListPragmas [
-	^ Pragma
-		allNamed: self dropListPragmaSelector
-		in: self client class
-		sortedByArgument: 1
+CRParametersPresenterBuilder >> widgetPragmaSelector [
+	^ #crWidget:position:named:
 ]
 
 { #category : #accessing }
-CRParametersPresenterBuilder >> dropListPragmaSelector [
-	^ #crDropList:named:
+CRParametersPresenterBuilder >> widgetsInstVarsNames [
+	^ self widgetsPragmas collectWithIndex: [ :p :i |
+		(#widget , i asString) asSymbol ]
 ]
 
 { #category : #accessing }
-CRParametersPresenterBuilder >> dropListsInstVarsNames [
-	^ self clientDropListPragmas collectWithIndex: [ :p :i |
-		(#droplist , i asString) asSymbol ]
-]
-
-{ #category : #accessing }
-CRParametersPresenterBuilder >> dropListsInstVarsNamesAndDropListPresenters [
+CRParametersPresenterBuilder >> widgetsInstVarsNamesAndPresenters [
 	
-	^ self dropListsInstVarsNames
-		inject: OrderedCollection new
-		into: [ :collection :symbol |
-			collection
-				add: symbol;
-				add: #DropListPresenter;
-				yourself ]
+	^ (self widgetsInstVarsNames with: self widgetsPragmas collect: [ :instVarName :pragma |
+		{ instVarName . (pragma argumentAt: 1) asCaseReporterWidgetName } ]) flattened
+]
+
+{ #category : #accessing }
+CRParametersPresenterBuilder >> widgetsPragmas [
+	^ Pragma
+		allNamed: self widgetPragmaSelector
+		from: self client class
+		to: CRClient
+		sortedByArgument: 2
 ]

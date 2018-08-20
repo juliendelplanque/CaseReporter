@@ -101,7 +101,7 @@ CRClient >> jsonAPILocation: anObject [
 
 { #category : #interacting }
 CRClient >> listAreas [
-	<crDropList: 2 named: 'Area:'>
+	<crWidget: #LabelledDropList position: 2 named: 'Area:'>
 	| rawResult |
 	rawResult := self executeCommand: (CRListAreasCommand new).
 
@@ -114,7 +114,7 @@ CRClient >> listAreas [
 
 { #category : #interacting }
 CRClient >> listCategories [
-	<crDropList: 4 named: 'Category:'>
+	<crWidget: #LabelledDropList position: 4 named: 'Category:'>
 	| rawResult |
 	rawResult := self executeCommand: (CRListCategoriesCommand new).
 
@@ -127,7 +127,7 @@ CRClient >> listCategories [
 
 { #category : #interacting }
 CRClient >> listMilestones [
-	<crDropList: 3 named: 'Milestone:'>
+	<crWidget: #LabelledDropList position: 3 named: 'Milestone:'>
 	| rawResult |
 	rawResult := self executeCommand: (CRListMilestonesCommand new).
 	
@@ -139,7 +139,7 @@ CRClient >> listMilestones [
 
 { #category : #interacting }
 CRClient >> listPeople [
-	<crDropList: 4 named: 'Assign to:'>
+	<crWidget: #LabelledDropList position: 4 named: 'Assign to:'>
 	| rawResult |
 	rawResult := self executeCommand: (CRListPeopleCommand new).
 
@@ -152,6 +152,7 @@ CRClient >> listPeople [
 
 { #category : #interacting }
 CRClient >> listPriorities [
+	<crWidget: #LabelledDropList position: 7 named: 'Priority:'>
 	| rawResult |
 	rawResult := self executeCommand: (CRListPrioritiesCommand new).
 
@@ -164,7 +165,7 @@ CRClient >> listPriorities [
 
 { #category : #interacting }
 CRClient >> listProjects [
-	<crDropList: 1 named: 'Project'>
+	<crWidget: #LabelledDropList position: 1 named: 'Project'>
 	| rawResult |
 	rawResult := self executeCommand: (CRListProjectsCommand new).
 
@@ -177,7 +178,7 @@ CRClient >> listProjects [
 
 { #category : #interacting }
 CRClient >> listStatuses [
-	<crDropList: 5 named: 'Status:'>
+	<crWidget: #LabelledDropList position: 5 named: 'Status:'>
 	| rawResult |
 	rawResult := self executeCommand: (CRListStatusesCommand new).
 
