@@ -2,7 +2,7 @@
 Login dialog
 "
 Class {
-	#name : #CRLoginDialogModel,
+	#name : #CRLoginDialogPresenter,
 	#superclass : #ComposablePresenter,
 	#instVars : [
 		'usernameLabel',
@@ -14,7 +14,7 @@ Class {
 }
 
 { #category : #specs }
-CRLoginDialogModel class >> defaultSpec [
+CRLoginDialogPresenter class >> defaultSpec [
   <spec: #default>
 
   ^ SpecLayout composed
@@ -34,7 +34,7 @@ CRLoginDialogModel class >> defaultSpec [
 ]
 
 { #category : #'instance creation' }
-CRLoginDialogModel class >> getCredentials [
+CRLoginDialogPresenter class >> getCredentials [
 	| login dialog |
 	login := self new.
 	dialog := login openDialogWithSpec.
@@ -45,17 +45,17 @@ CRLoginDialogModel class >> getCredentials [
 ]
 
 { #category : #converting }
-CRLoginDialogModel >> asCredentials [
+CRLoginDialogPresenter >> asCredentials [
 	^ CRCredentials login: self usernameField text password: self passwordField text
 ]
 
 { #category : #defaults }
-CRLoginDialogModel >> initialExtent [
+CRLoginDialogPresenter >> initialExtent [
   ^ 350 @ 150
 ]
 
 { #category : #'initialization widgets' }
-CRLoginDialogModel >> initializeWidgets [
+CRLoginDialogPresenter >> initializeWidgets [
   usernameLabel := self newLabel.
   usernameLabel label: 'Username'.
   usernameField := self newTextInput.
@@ -68,46 +68,46 @@ CRLoginDialogModel >> initializeWidgets [
 ]
 
 { #category : #accessing }
-CRLoginDialogModel >> passwordField [
+CRLoginDialogPresenter >> passwordField [
 	^ passwordField
 ]
 
 { #category : #accessing }
-CRLoginDialogModel >> passwordField: anObject [
+CRLoginDialogPresenter >> passwordField: anObject [
 	passwordField := anObject
 ]
 
 { #category : #accessing }
-CRLoginDialogModel >> passwordLabel [
+CRLoginDialogPresenter >> passwordLabel [
 	^ passwordLabel
 ]
 
 { #category : #accessing }
-CRLoginDialogModel >> passwordLabel: anObject [
+CRLoginDialogPresenter >> passwordLabel: anObject [
 	passwordLabel := anObject
 ]
 
 { #category : #defaults }
-CRLoginDialogModel >> title [
+CRLoginDialogPresenter >> title [
   ^ 'Login'
 ]
 
 { #category : #accessing }
-CRLoginDialogModel >> usernameField [
+CRLoginDialogPresenter >> usernameField [
 	^ usernameField
 ]
 
 { #category : #accessing }
-CRLoginDialogModel >> usernameField: anObject [
+CRLoginDialogPresenter >> usernameField: anObject [
 	usernameField := anObject
 ]
 
 { #category : #accessing }
-CRLoginDialogModel >> usernameLabel [
+CRLoginDialogPresenter >> usernameLabel [
 	^ usernameLabel
 ]
 
 { #category : #accessing }
-CRLoginDialogModel >> usernameLabel: anObject [
+CRLoginDialogPresenter >> usernameLabel: anObject [
 	usernameLabel := anObject
 ]

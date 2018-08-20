@@ -2,7 +2,7 @@
 I am the combination of a label and drop list in a single widget.
 "
 Class {
-	#name : #CRLabelledDropList,
+	#name : #CRLabelledDropListPresenter,
 	#superclass : #ComposablePresenter,
 	#instVars : [
 		'label',
@@ -14,7 +14,7 @@ Class {
 }
 
 { #category : #specs }
-CRLabelledDropList class >> defaultSpec [
+CRLabelledDropListPresenter class >> defaultSpec [
   <spec: #default>
 
   ^ SpecLayout composed
@@ -26,90 +26,90 @@ CRLabelledDropList class >> defaultSpec [
 ]
 
 { #category : #private }
-CRLabelledDropList >> defaultFilteringBlock [
+CRLabelledDropListPresenter >> defaultFilteringBlock [
 	"Filters nothing."
 	^ [ :item | true ]
 ]
 
 { #category : #api }
-CRLabelledDropList >> displayBlock: aBlock [
+CRLabelledDropListPresenter >> displayBlock: aBlock [
 	self dropList
 		displayBlock: aBlock
 ]
 
 { #category : #accessing }
-CRLabelledDropList >> dropList [
+CRLabelledDropListPresenter >> dropList [
 	^ dropList
 ]
 
 { #category : #api }
-CRLabelledDropList >> filteringBlock [
+CRLabelledDropListPresenter >> filteringBlock [
 	^ filteringBlock
 ]
 
 { #category : #api }
-CRLabelledDropList >> filteringBlock: anObject [
+CRLabelledDropListPresenter >> filteringBlock: anObject [
 	filteringBlock := anObject.
 	self items: items
 ]
 
 { #category : #initialization }
-CRLabelledDropList >> initialize [
+CRLabelledDropListPresenter >> initialize [
 	super initialize.
 	items := OrderedCollection new.
 	self resetFilter.
 ]
 
 { #category : #initialization }
-CRLabelledDropList >> initializeWidgets [
+CRLabelledDropListPresenter >> initializeWidgets [
 	label := self newLabel.
 	dropList := self newDropList
 ]
 
 { #category : #api }
-CRLabelledDropList >> items [
+CRLabelledDropListPresenter >> items [
 	^ items
 ]
 
 { #category : #api }
-CRLabelledDropList >> items: aCollectionOfObjects [
+CRLabelledDropListPresenter >> items: aCollectionOfObjects [
 	items := aCollectionOfObjects.
 	self dropList
 		items: (aCollectionOfObjects select: filteringBlock)
 ]
 
 { #category : #accessing }
-CRLabelledDropList >> label [
+CRLabelledDropListPresenter >> label [
 	^ label
 ]
 
 { #category : #api }
-CRLabelledDropList >> label: aString [
+CRLabelledDropListPresenter >> label: aString [
 	self label
 		label: aString
 ]
 
 { #category : #api }
-CRLabelledDropList >> resetFilter [
+CRLabelledDropListPresenter >> resetFilter [
 	self filteringBlock: self defaultFilteringBlock
 ]
 
 { #category : #accessing }
-CRLabelledDropList >> selectedItem [
+CRLabelledDropListPresenter >> selectedItem [
 	^ self dropList selectedItem
 ]
 
 { #category : #api }
-CRLabelledDropList >> selectedItem: anObject [
+CRLabelledDropListPresenter >> selectedItem: anObject [
 	self dropList setSelectedItem: anObject
 ]
 
 { #category : #api }
-CRLabelledDropList >> setSelectedItem: anObject [
+CRLabelledDropListPresenter >> setSelectedItem: anObject [
 	self dropList setSelectedItem: anObject
 ]
 
 { #category : #api }
-CRLabelledDropList >> whenSelectedItemChanged: aBlockClosure [ 
+CRLabelledDropListPresenter >> whenSelectedItemChanged: aBlockClosure [ 
 	self dropList whenSelectedItemChanged: aBlockClosure 
 ]

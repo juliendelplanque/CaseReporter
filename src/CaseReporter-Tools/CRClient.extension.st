@@ -9,7 +9,7 @@ CRClient class >> getWorkingClientByAskingUser [
 	potentialCredentials := nil.
 	[ client isNil ] whileTrue: [
 		potentialCredentials
-			ifNil: [ potentialCredentials := CRLoginDialogModel getCredentials ].
+			ifNil: [ potentialCredentials := CRLoginDialogPresenter getCredentials ].
 		[ client := self clientClass login: potentialCredentials.
 		  self default: client ]
 			on: Error

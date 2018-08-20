@@ -336,7 +336,7 @@ CRCaseCreatorPresenter >> milestonesDropList [
 
 { #category : #widgets }
 CRCaseCreatorPresenter >> newLabelledDropList [
-	^ self instantiate: CRLabelledDropList
+	^ self instantiate: CRLabelledDropListPresenter
 ]
 
 { #category : #adapting }
