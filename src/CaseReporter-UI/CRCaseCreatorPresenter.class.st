@@ -158,7 +158,7 @@ CRCaseCreatorPresenter >> areasDropList [
 { #category : #api }
 CRCaseCreatorPresenter >> asFogBugzCase [
 	self checkUserInputs.
-	^ CRCase new
+	^ CRFBCase new
 		title: self caseTitle;
 		content: self content;
 		status: self statusSelected;

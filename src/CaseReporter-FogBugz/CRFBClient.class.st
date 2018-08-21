@@ -35,7 +35,7 @@ CRFBClient >> executeCommand: aCommand [
 CRFBClient >> handleErrorsIn: aDictionary [
 	(aDictionary at: #errors)
 		ifNotEmpty: [ :rawErrors |
-			CRErrorsList new
+			CRFBErrorsList new
 				errors: (rawErrors collect: [ :each |
 								Error new
 									messageText: (each at: #message);
@@ -62,91 +62,91 @@ CRFBClient >> jsonAPILocation: anObject [
 { #category : #interacting }
 CRFBClient >> listAreas [
 	| rawResult |
-	rawResult := self executeCommand: (CRListAreasCommand new).
+	rawResult := self executeCommand: (CRFBListAreasCommand new).
 
 	(rawResult at: #errorCode) ifNotNil: [ self handleErrorsIn: rawResult ].
 	
 	^ (rawResult at: #data) ifNotEmpty: [ :data |
 		(data at: #areas) 
-				collect: [ :each | CRArea fromDictionary: each ] ]
+				collect: [ :each | CRFBArea fromDictionary: each ] ]
 ]
 
 { #category : #interacting }
 CRFBClient >> listCategories [
 	| rawResult |
-	rawResult := self executeCommand: (CRListCategoriesCommand new).
+	rawResult := self executeCommand: (CRFBListCategoriesCommand new).
 
 	(rawResult at: #errorCode) ifNotNil: [ self handleErrorsIn: rawResult ].
 	
 	^ (rawResult at: #data) ifNotEmpty: [ :data |
 			(data at: #categories) 
-				collect: [ :each | CRCategory fromDictionary: each ]]
+				collect: [ :each | CRFBCategory fromDictionary: each ]]
 ]
 
 { #category : #interacting }
 CRFBClient >> listMilestones [
 	| rawResult |
-	rawResult := self executeCommand: (CRListMilestonesCommand new).
+	rawResult := self executeCommand: (CRFBListMilestonesCommand new).
 	
 	(rawResult at: #errorCode) ifNotNil: [ self handleErrorsIn: rawResult ].
 	^ (rawResult at: #data) ifNotEmpty: [ :data |
 			(data at: #fixfors)
-				collect: [ :each | CRMilestone fromDictionary: each ]]
+				collect: [ :each | CRFBMilestone fromDictionary: each ]]
 ]
 
 { #category : #interacting }
 CRFBClient >> listPeople [
 	| rawResult |
-	rawResult := self executeCommand: (CRListPeopleCommand new).
+	rawResult := self executeCommand: (CRFBListPeopleCommand new).
 
 	(rawResult at: #errorCode) ifNotNil: [ self handleErrorsIn: rawResult ].
 	
 	^ (rawResult at: #data) ifNotEmpty: [ :data |
 			(data at: #people) 
-				collect: [ :each | CRUser fromDictionary: each ]]
+				collect: [ :each | CRFBUser fromDictionary: each ]]
 ]
 
 { #category : #interacting }
 CRFBClient >> listPriorities [
 	| rawResult |
-	rawResult := self executeCommand: (CRListPrioritiesCommand new).
+	rawResult := self executeCommand: (CRFBListPrioritiesCommand new).
 
 	(rawResult at: #errorCode) ifNotNil: [ self handleErrorsIn: rawResult ].
 	
 	^ (rawResult at: #data) ifNotEmpty: [ :data |
 			(data at: #priorities) 
-				collect: [ :each | CRPriority fromDictionary: each ]]
+				collect: [ :each | CRFBPriority fromDictionary: each ]]
 ]
 
 { #category : #interacting }
 CRFBClient >> listProjects [
 	| rawResult |
-	rawResult := self executeCommand: (CRListProjectsCommand new).
+	rawResult := self executeCommand: (CRFBListProjectsCommand new).
 
 	(rawResult at: #errorCode) ifNotNil: [ self handleErrorsIn: rawResult ].
 	
 	^ (rawResult at: #data) ifNotEmpty: [ :data |
 		(data at: #projects) 
-			collect: [ :each | CRProject fromDictionary: each ] ].
+			collect: [ :each | CRFBProject fromDictionary: each ] ].
 ]
 
 { #category : #interacting }
 CRFBClient >> listStatuses [
 	| rawResult |
-	rawResult := self executeCommand: (CRListStatusesCommand new).
+	rawResult := self executeCommand: (CRFBListStatusesCommand new).
 
 	(rawResult at: #errorCode) ifNotNil: [ self handleErrorsIn: rawResult ].
 	
 	^ (rawResult at: #data) ifNotEmpty: [ :data |
 		(data at: #statuses) 
-			collect: [ :each | CRStatus fromDictionary: each ]].
+			collect: [ :each | CRFBStatus fromDictionary: each ]].
 ]
 
 { #category : #authentication }
 CRFBClient >> login: aCredential [
 	| rawResult |
 	rawResult := self
-		executeCommand: (CRLoginCommand loginUser: aCredential login password: aCredential password).
+		executeCommand: (CRFBLoginCommand loginUser: aCredential login password: aCredential password).
 	(rawResult at: #errorCode)
 		ifNotNil: [ self handleErrorsIn: rawResult ].
 		
@@ -159,7 +159,7 @@ CRFBClient >> login: aCredential [
 CRFBClient >> logout [
 
 	| rawResult |
-	rawResult := self executeCommand: CRLogoutCommand new.
+	rawResult := self executeCommand: CRFBLogoutCommand new.
 	(rawResult at: #errorCode)
 		ifNotNil: [ self handleErrorsIn: rawResult ].
 	token := nil
@@ -169,7 +169,7 @@ CRFBClient >> logout [
 CRFBClient >> newCase: aFogBugzCase [
 	| rawResult |
 	rawResult := self executeCommand: (
-							CRNewCaseCommand new
+							CRFBNewCaseCommand new
 									case: aFogBugzCase;
 									yourself).
 	(rawResult at: #errorCode)
@@ -185,9 +185,9 @@ CRFBClient >> openCaseCreationUIWithTemplate: aString [
 CRFBClient >> query: aString [
 
 	| rawResult |
-	rawResult := self executeCommand: (CRSearchCommand query: aString).
+	rawResult := self executeCommand: (CRFBSearchCommand query: aString).
    (rawResult at: #errorCode) ifNotNil: [ self handleErrorsIn: rawResult ].
 	
 	^ (rawResult at: #data) ifNotEmpty: [:c |
-		(c at: #cases) collect: [ :each | CRCase fromDictionary: each ] ]
+		(c at: #cases) collect: [ :each | CRFBCase fromDictionary: each ] ]
 ]
