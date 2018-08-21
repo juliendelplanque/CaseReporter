@@ -30,14 +30,6 @@ CRClient class >> login: aCredentials [
 		yourself
 ]
 
-{ #category : #'instance creation' }
-CRClient class >> loginUser: email password: password [
-
-	^(self new)
-		login: email password: password;
-		yourself
-]
-
 { #category : #reset }
 CRClient class >> reset [
 	<script>

@@ -144,14 +144,9 @@ CRFBClient >> listStatuses [
 
 { #category : #authentication }
 CRFBClient >> login: aCredential [
-	^ self login: aCredential login password: aCredential password
-]
-
-{ #category : #authentication }
-CRFBClient >> login: email password: password [
 	| rawResult |
 	rawResult := self
-		executeCommand: (CRLoginCommand loginUser: email password: password).
+		executeCommand: (CRLoginCommand loginUser: aCredential login password: aCredential password).
 	(rawResult at: #errorCode)
 		ifNotNil: [ self handleErrorsIn: rawResult ].
 		
