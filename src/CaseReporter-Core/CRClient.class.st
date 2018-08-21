@@ -43,6 +43,14 @@ CRClient class >> example [
 ]
 
 { #category : #'instance creation' }
+CRClient class >> login: aCredentials [
+
+	^(self new)
+		login: aCredentials;
+		yourself
+]
+
+{ #category : #'instance creation' }
 CRClient class >> loginUser: email password: password [
 
 	^(self new)
@@ -57,6 +65,7 @@ CRClient class >> pharoJSONAPILocation [
 
 { #category : #reset }
 CRClient class >> reset [
+	<script>
 	self default: nil
 ]
 
