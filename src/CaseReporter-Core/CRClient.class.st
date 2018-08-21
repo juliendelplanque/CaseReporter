@@ -1,3 +1,8 @@
+"
+I am an abstract client for a bugtracker.
+
+My subclasses should define how to #login: into the bugtracker and how to open the UI (openCaseCreationUIWithTemplate:) allowing user to fill case informations.
+"
 Class {
 	#name : #CRClient,
 	#superclass : #Object,
