@@ -9,8 +9,8 @@ I am a client that cache some informations:
 - statuses
 "
 Class {
-	#name : #CRCachedClient,
-	#superclass : #CRClient,
+	#name : #CRFBCachedClient,
+	#superclass : #CRFBClient,
 	#instVars : [
 		'cachedAreas',
 		'cachedCategories',
@@ -24,113 +24,113 @@ Class {
 }
 
 { #category : #accessing }
-CRCachedClient >> cachedAreas [
+CRFBCachedClient >> cachedAreas [
 	^ cachedAreas
 ]
 
 { #category : #accessing }
-CRCachedClient >> cachedAreas: anObject [
+CRFBCachedClient >> cachedAreas: anObject [
 	cachedAreas := anObject
 ]
 
 { #category : #accessing }
-CRCachedClient >> cachedCategories [
+CRFBCachedClient >> cachedCategories [
 	^ cachedCategories
 ]
 
 { #category : #accessing }
-CRCachedClient >> cachedCategories: anObject [
+CRFBCachedClient >> cachedCategories: anObject [
 	cachedCategories := anObject
 ]
 
 { #category : #accessing }
-CRCachedClient >> cachedMilestones [
+CRFBCachedClient >> cachedMilestones [
 	^ cachedMilestones
 ]
 
 { #category : #accessing }
-CRCachedClient >> cachedMilestones: anObject [
+CRFBCachedClient >> cachedMilestones: anObject [
 	cachedMilestones := anObject
 ]
 
 { #category : #accessing }
-CRCachedClient >> cachedPeople [
+CRFBCachedClient >> cachedPeople [
 	^ cachedPeople
 ]
 
 { #category : #accessing }
-CRCachedClient >> cachedPeople: anObject [
+CRFBCachedClient >> cachedPeople: anObject [
 	cachedPeople := anObject
 ]
 
 { #category : #accessing }
-CRCachedClient >> cachedPriorities [
+CRFBCachedClient >> cachedPriorities [
 	^ cachedPriorities
 ]
 
 { #category : #accessing }
-CRCachedClient >> cachedPriorities: anObject [
+CRFBCachedClient >> cachedPriorities: anObject [
 	cachedPriorities := anObject
 ]
 
 { #category : #accessing }
-CRCachedClient >> cachedProjects [
+CRFBCachedClient >> cachedProjects [
 	^ cachedProjects
 ]
 
 { #category : #accessing }
-CRCachedClient >> cachedProjects: anObject [
+CRFBCachedClient >> cachedProjects: anObject [
 	cachedProjects := anObject
 ]
 
 { #category : #accessing }
-CRCachedClient >> cachedStatuses [
+CRFBCachedClient >> cachedStatuses [
 	^ cachedStatuses
 ]
 
 { #category : #accessing }
-CRCachedClient >> cachedStatuses: anObject [
+CRFBCachedClient >> cachedStatuses: anObject [
 	cachedStatuses := anObject
 ]
 
 { #category : #interacting }
-CRCachedClient >> listAreas [
+CRFBCachedClient >> listAreas [
 	^ self cachedAreas
 		ifNil: [ cachedAreas := super listAreas ]
 ]
 
 { #category : #interacting }
-CRCachedClient >> listCategories [
+CRFBCachedClient >> listCategories [
 	^ self cachedCategories
 		ifNil: [ cachedCategories := super listCategories ]
 ]
 
 { #category : #interacting }
-CRCachedClient >> listMilestones [
+CRFBCachedClient >> listMilestones [
 	^ self cachedMilestones
 		ifNil: [ cachedMilestones := super listMilestones ]
 ]
 
 { #category : #interacting }
-CRCachedClient >> listPeople [
+CRFBCachedClient >> listPeople [
 	^ self cachedPeople
 		ifNil: [ cachedPeople := super listPeople ]
 ]
 
 { #category : #interacting }
-CRCachedClient >> listPriorities [
+CRFBCachedClient >> listPriorities [
 	^ self cachedPriorities
 		ifNil: [ cachedPriorities := super listPriorities ]
 ]
 
 { #category : #interacting }
-CRCachedClient >> listProjects [
+CRFBCachedClient >> listProjects [
 	^ self cachedProjects
 		ifNil: [ cachedProjects := super listProjects ]
 ]
 
 { #category : #interacting }
-CRCachedClient >> listStatuses [
+CRFBCachedClient >> listStatuses [
 	^ self cachedStatuses
 		ifNil: [ cachedStatuses := super listStatuses ]
 ]

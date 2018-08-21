@@ -1,3 +1,6 @@
+"
+Common behaviour for command allowing to open case.
+"
 Trait {
 	#name : #CRCalypsoCommand,
 	#category : #'CaseReporter-Calypso'
@@ -21,10 +24,9 @@ CRCalypsoCommand classSide >> itemOrder [
 { #category : #execution }
 CRCalypsoCommand >> execute [
 	[ 
-		CRCaseCreatorPresenter openWithTemplate: self issueTemplate
+		CRClient getWorkingClientByAskingUser openCaseCreationUIWithTemplate: self issueTemplate
 	] on: CRUserCancelledLogin do: [ 
-		UIManager default inform: 'Log-in cancelled.'.
-		^ self ].
+		UIManager default inform: 'Log-in cancelled.' ].
 ]
 
 { #category : #accessing }

@@ -6,62 +6,22 @@ https://pharo.fogbugz.com/f/
 See class side example methods
 "
 Class {
-	#name : #CRClient,
-	#superclass : #Object,
+	#name : #CRFBClient,
+	#superclass : #CRClient,
 	#instVars : [
 		'token',
 		'jsonAPILocation'
-	],
-	#classInstVars : [
-		'default'
 	],
 	#category : #'CaseReporter-FogBugz-Client'
 }
 
 { #category : #accessing }
-CRClient class >> clientClass [
-	^ CRCachedClient
-]
-
-{ #category : #accessing }
-CRClient class >> default [
-	^ default
-]
-
-{ #category : #accessing }
-CRClient class >> default: anObject [
-	default := anObject
-]
-
-{ #category : #'instance creation' }
-CRClient class >> login: aCredentials [
-
-	^(self new)
-		login: aCredentials;
-		yourself
-]
-
-{ #category : #'instance creation' }
-CRClient class >> loginUser: email password: password [
-
-	^(self new)
-		login: email password: password;
-		yourself
-]
-
-{ #category : #accessing }
-CRClient class >> pharoJSONAPILocation [
+CRFBClient class >> pharoJSONAPILocation [
 	^ 'https://pharo.fogbugz.com/f/api/0/jsonapi'
 ]
 
-{ #category : #reset }
-CRClient class >> reset [
-	<script>
-	self default: nil
-]
-
 { #category : #'private - utilities' }
-CRClient >> executeCommand: aCommand [
+CRFBClient >> executeCommand: aCommand [
 	aCommand requiresSession ifTrue: [ 
 		aCommand token: token ].
 	^ STON
@@ -72,7 +32,7 @@ CRClient >> executeCommand: aCommand [
 ]
 
 { #category : #'private - utilities' }
-CRClient >> handleErrorsIn: aDictionary [
+CRFBClient >> handleErrorsIn: aDictionary [
 	(aDictionary at: #errors)
 		ifNotEmpty: [ :rawErrors |
 			CRErrorsList new
@@ -84,23 +44,23 @@ CRClient >> handleErrorsIn: aDictionary [
 ]
 
 { #category : #testing }
-CRClient >> isLoggedIn [
+CRFBClient >> isLoggedIn [
 
 	^token notNil
 ]
 
 { #category : #accessing }
-CRClient >> jsonAPILocation [
+CRFBClient >> jsonAPILocation [
 	^ jsonAPILocation ifNil: [ jsonAPILocation := self class pharoJSONAPILocation ]
 ]
 
 { #category : #accessing }
-CRClient >> jsonAPILocation: anObject [
+CRFBClient >> jsonAPILocation: anObject [
 	jsonAPILocation := anObject
 ]
 
 { #category : #interacting }
-CRClient >> listAreas [
+CRFBClient >> listAreas [
 	| rawResult |
 	rawResult := self executeCommand: (CRListAreasCommand new).
 
@@ -112,7 +72,7 @@ CRClient >> listAreas [
 ]
 
 { #category : #interacting }
-CRClient >> listCategories [
+CRFBClient >> listCategories [
 	| rawResult |
 	rawResult := self executeCommand: (CRListCategoriesCommand new).
 
@@ -124,7 +84,7 @@ CRClient >> listCategories [
 ]
 
 { #category : #interacting }
-CRClient >> listMilestones [
+CRFBClient >> listMilestones [
 	| rawResult |
 	rawResult := self executeCommand: (CRListMilestonesCommand new).
 	
@@ -135,7 +95,7 @@ CRClient >> listMilestones [
 ]
 
 { #category : #interacting }
-CRClient >> listPeople [
+CRFBClient >> listPeople [
 	| rawResult |
 	rawResult := self executeCommand: (CRListPeopleCommand new).
 
@@ -147,7 +107,7 @@ CRClient >> listPeople [
 ]
 
 { #category : #interacting }
-CRClient >> listPriorities [
+CRFBClient >> listPriorities [
 	| rawResult |
 	rawResult := self executeCommand: (CRListPrioritiesCommand new).
 
@@ -159,7 +119,7 @@ CRClient >> listPriorities [
 ]
 
 { #category : #interacting }
-CRClient >> listProjects [
+CRFBClient >> listProjects [
 	| rawResult |
 	rawResult := self executeCommand: (CRListProjectsCommand new).
 
@@ -171,7 +131,7 @@ CRClient >> listProjects [
 ]
 
 { #category : #interacting }
-CRClient >> listStatuses [
+CRFBClient >> listStatuses [
 	| rawResult |
 	rawResult := self executeCommand: (CRListStatusesCommand new).
 
@@ -183,12 +143,12 @@ CRClient >> listStatuses [
 ]
 
 { #category : #authentication }
-CRClient >> login: aCredential [
+CRFBClient >> login: aCredential [
 	^ self login: aCredential login password: aCredential password
 ]
 
 { #category : #authentication }
-CRClient >> login: email password: password [
+CRFBClient >> login: email password: password [
 	| rawResult |
 	rawResult := self
 		executeCommand: (CRLoginCommand loginUser: email password: password).
@@ -201,7 +161,7 @@ CRClient >> login: email password: password [
 ]
 
 { #category : #authentication }
-CRClient >> logout [
+CRFBClient >> logout [
 
 	| rawResult |
 	rawResult := self executeCommand: CRLogoutCommand new.
@@ -211,7 +171,7 @@ CRClient >> logout [
 ]
 
 { #category : #interacting }
-CRClient >> newCase: aFogBugzCase [
+CRFBClient >> newCase: aFogBugzCase [
 	| rawResult |
 	rawResult := self executeCommand: (
 							CRNewCaseCommand new
@@ -221,8 +181,13 @@ CRClient >> newCase: aFogBugzCase [
 		 ifNotNil: [ self handleErrorsIn: rawResult ]
 ]
 
+{ #category : #ui }
+CRFBClient >> openCaseCreationUIWithTemplate: aString [
+	CRCaseCreatorPresenter openForClient: self withTemplate: aString
+]
+
 { #category : #interacting }
-CRClient >> query: aString [
+CRFBClient >> query: aString [
 
 	| rawResult |
 	rawResult := self executeCommand: (CRSearchCommand query: aString).
