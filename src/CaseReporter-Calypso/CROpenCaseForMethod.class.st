@@ -1,3 +1,6 @@
+"
+Calypso command to open the UI for reporting a case related to a method on a bugtracker.
+"
 Class {
 	#name : #CROpenCaseForMethod,
 	#superclass : #ClyBrowserCommand,
