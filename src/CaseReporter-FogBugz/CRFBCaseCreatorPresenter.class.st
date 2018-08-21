@@ -8,7 +8,7 @@ To try me:
 ]]]
 "
 Class {
-	#name : #CRCaseCreatorPresenter,
+	#name : #CRFBCaseCreatorPresenter,
 	#superclass : #CRAbstractCaseCreatorPresenter,
 	#instVars : [
 		'projectsLabel',
@@ -25,7 +25,7 @@ Class {
 }
 
 { #category : #specs }
-CRCaseCreatorPresenter class >> defaultSpec [
+CRFBCaseCreatorPresenter class >> defaultSpec [
   <spec: #default>
 
   ^ SpecLayout composed
@@ -60,14 +60,14 @@ CRCaseCreatorPresenter class >> defaultSpec [
 ]
 
 { #category : #'instance creation' }
-CRCaseCreatorPresenter class >> example [
+CRFBCaseCreatorPresenter class >> example [
 	| client |
 	client := [ CRClient getWorkingClientByAskingUser ] on: CRUserCancelledLogin do: [ "abort" ^ self ].
 	^ self openForClient: client withTemplate: 'A custom template for issue description.'
 ]
 
 { #category : #'world menu' }
-CRCaseCreatorPresenter class >> menuCommandOn: aBuilder [
+CRFBCaseCreatorPresenter class >> menuCommandOn: aBuilder [
 	<worldMenu> 		 
 		
 	(aBuilder item: #'Case Reporter')	 	 
@@ -78,13 +78,13 @@ CRCaseCreatorPresenter class >> menuCommandOn: aBuilder [
 ]
 
 { #category : #'instance creation' }
-CRCaseCreatorPresenter class >> open [
+CRFBCaseCreatorPresenter class >> open [
 	<script>
 	^ self openWithTemplate: ''
 ]
 
 { #category : #'instance creation' }
-CRCaseCreatorPresenter class >> openForClient: aFogBugzClient withTemplate: aString [
+CRFBCaseCreatorPresenter class >> openForClient: aFogBugzClient withTemplate: aString [
 	| caseCreator window |
 	caseCreator := self new
 						contentTemplate: aString;
@@ -99,12 +99,12 @@ CRCaseCreatorPresenter class >> openForClient: aFogBugzClient withTemplate: aStr
 ]
 
 { #category : #'instance creation' }
-CRCaseCreatorPresenter class >> openWithTemplate: aString [
+CRFBCaseCreatorPresenter class >> openWithTemplate: aString [
 	^ self openForClient: CRClient getWorkingClientByAskingUser withTemplate: aString
 ]
 
 { #category : #adapting }
-CRCaseCreatorPresenter >> adaptToClient: aFogBugzClient [
+CRFBCaseCreatorPresenter >> adaptToClient: aFogBugzClient [
 	| todo |
 	todo := #(
 		areas: listAreas
@@ -134,23 +134,23 @@ CRCaseCreatorPresenter >> adaptToClient: aFogBugzClient [
 ]
 
 { #category : #api }
-CRCaseCreatorPresenter >> areaSelected [
+CRFBCaseCreatorPresenter >> areaSelected [
 	^ self areasDropList selectedItem
 ]
 
 { #category : #api }
-CRCaseCreatorPresenter >> areas: aCollectionOfAreas [
+CRFBCaseCreatorPresenter >> areas: aCollectionOfAreas [
 	self areasDropList
 		items: aCollectionOfAreas
 ]
 
 { #category : #accessing }
-CRCaseCreatorPresenter >> areasDropList [
+CRFBCaseCreatorPresenter >> areasDropList [
 	^ areasDropList
 ]
 
 { #category : #api }
-CRCaseCreatorPresenter >> asCase [
+CRFBCaseCreatorPresenter >> asCase [
 	self checkUserInputs.
 	^ CRFBCase new
 		title: self caseTitle;
@@ -166,28 +166,28 @@ CRCaseCreatorPresenter >> asCase [
 ]
 
 { #category : #accessing }
-CRCaseCreatorPresenter >> assignToDropList [
+CRFBCaseCreatorPresenter >> assignToDropList [
 	^ assignToDropList
 ]
 
 { #category : #api }
-CRCaseCreatorPresenter >> categories: anOrderedCollectionOfString [
+CRFBCaseCreatorPresenter >> categories: anOrderedCollectionOfString [
 	self categoriesDropList
 		items: anOrderedCollectionOfString
 ]
 
 { #category : #accessing }
-CRCaseCreatorPresenter >> categoriesDropList [
+CRFBCaseCreatorPresenter >> categoriesDropList [
 	^ categoriesDropList
 ]
 
 { #category : #api }
-CRCaseCreatorPresenter >> categorySelected [
+CRFBCaseCreatorPresenter >> categorySelected [
 	^ self categoriesDropList selectedItem
 ]
 
 { #category : #initialization }
-CRCaseCreatorPresenter >> initializeAreasDropList [
+CRFBCaseCreatorPresenter >> initializeAreasDropList [
 	areasDropList := self newLabelledDropList.
 	areasDropList
 		label: 'Area:' translated;
@@ -195,7 +195,7 @@ CRCaseCreatorPresenter >> initializeAreasDropList [
 ]
 
 { #category : #initialization }
-CRCaseCreatorPresenter >> initializeAssignToDropList [
+CRFBCaseCreatorPresenter >> initializeAssignToDropList [
 	assignToDropList := self newLabelledDropList.
 	assignToDropList
 		label: 'Assign to:' translated;
@@ -203,7 +203,7 @@ CRCaseCreatorPresenter >> initializeAssignToDropList [
 ]
 
 { #category : #initialization }
-CRCaseCreatorPresenter >> initializeCategoriesDropList [
+CRFBCaseCreatorPresenter >> initializeCategoriesDropList [
 	categoriesDropList := self newLabelledDropList.
 	categoriesDropList
 		label: 'Category:' translated;
@@ -217,7 +217,7 @@ CRCaseCreatorPresenter >> initializeCategoriesDropList [
 ]
 
 { #category : #initialization }
-CRCaseCreatorPresenter >> initializeLabelledDropLists [
+CRFBCaseCreatorPresenter >> initializeLabelledDropLists [
 	self
 		initializeAreasDropList;
 		initializeAssignToDropList;
@@ -229,7 +229,7 @@ CRCaseCreatorPresenter >> initializeLabelledDropLists [
 ]
 
 { #category : #initialization }
-CRCaseCreatorPresenter >> initializeMilestonesDropList [
+CRFBCaseCreatorPresenter >> initializeMilestonesDropList [
 	milestonesDropList := self newLabelledDropList.
 	milestonesDropList
 		label: 'Milestone:' translated;
@@ -237,7 +237,7 @@ CRCaseCreatorPresenter >> initializeMilestonesDropList [
 ]
 
 { #category : #initialization }
-CRCaseCreatorPresenter >> initializePrioritiesDropList [
+CRFBCaseCreatorPresenter >> initializePrioritiesDropList [
 	prioritiesDropList := self newLabelledDropList.
 	prioritiesDropList
 		label: 'Priority:' translated;
@@ -245,7 +245,7 @@ CRCaseCreatorPresenter >> initializePrioritiesDropList [
 ]
 
 { #category : #initialization }
-CRCaseCreatorPresenter >> initializeProjectsDropList [
+CRFBCaseCreatorPresenter >> initializeProjectsDropList [
 	projectsDropList := self newLabelledDropList.
 	projectsDropList
 		label: 'Project:' translated;
@@ -261,7 +261,7 @@ CRCaseCreatorPresenter >> initializeProjectsDropList [
 ]
 
 { #category : #initialization }
-CRCaseCreatorPresenter >> initializeStatusesDropList [
+CRFBCaseCreatorPresenter >> initializeStatusesDropList [
 	statusesDropList := self newLabelledDropList.
 	statusesDropList
 		label: 'Status:' translated;
@@ -269,29 +269,29 @@ CRCaseCreatorPresenter >> initializeStatusesDropList [
 ]
 
 { #category : #initialization }
-CRCaseCreatorPresenter >> initializeWidgets [
+CRFBCaseCreatorPresenter >> initializeWidgets [
 	super initializeWidgets.
 	self initializeLabelledDropLists.
 ]
 
 { #category : #api }
-CRCaseCreatorPresenter >> milestoneSelected [
+CRFBCaseCreatorPresenter >> milestoneSelected [
 	^ self milestonesDropList selectedItem
 ]
 
 { #category : #api }
-CRCaseCreatorPresenter >> milestones: aCollectionOfMilestones [
+CRFBCaseCreatorPresenter >> milestones: aCollectionOfMilestones [
 	self milestonesDropList
 		items: aCollectionOfMilestones
 ]
 
 { #category : #accessing }
-CRCaseCreatorPresenter >> milestonesDropList [
+CRFBCaseCreatorPresenter >> milestonesDropList [
 	^ milestonesDropList
 ]
 
 { #category : #adapting }
-CRCaseCreatorPresenter >> postAdaptationActions [
+CRFBCaseCreatorPresenter >> postAdaptationActions [
 	self prioritiesDropList
 		setSelectedItem: (self priorities detect: #isDefault).
 	
@@ -305,65 +305,65 @@ CRCaseCreatorPresenter >> postAdaptationActions [
 ]
 
 { #category : #api }
-CRCaseCreatorPresenter >> priorities [
+CRFBCaseCreatorPresenter >> priorities [
 	^ self prioritiesDropList items
 ]
 
 { #category : #api }
-CRCaseCreatorPresenter >> priorities: aCollectionOfPriorities [
+CRFBCaseCreatorPresenter >> priorities: aCollectionOfPriorities [
 	self prioritiesDropList
 		items: aCollectionOfPriorities
 ]
 
 { #category : #accessing }
-CRCaseCreatorPresenter >> prioritiesDropList [
+CRFBCaseCreatorPresenter >> prioritiesDropList [
 	^ prioritiesDropList
 ]
 
 { #category : #api }
-CRCaseCreatorPresenter >> prioritySelected [
+CRFBCaseCreatorPresenter >> prioritySelected [
 	^ self prioritiesDropList selectedItem
 ]
 
 { #category : #api }
-CRCaseCreatorPresenter >> projectSelected [
+CRFBCaseCreatorPresenter >> projectSelected [
 	^ self projectsDropList selectedItem
 ]
 
 { #category : #api }
-CRCaseCreatorPresenter >> projects: anOrderedCollectionOfString [
+CRFBCaseCreatorPresenter >> projects: anOrderedCollectionOfString [
 	self projectsDropList
 		items: anOrderedCollectionOfString
 ]
 
 { #category : #accessing }
-CRCaseCreatorPresenter >> projectsDropList [
+CRFBCaseCreatorPresenter >> projectsDropList [
 	^ projectsDropList
 ]
 
 { #category : #api }
-CRCaseCreatorPresenter >> statusSelected [
+CRFBCaseCreatorPresenter >> statusSelected [
 	^ self statusesDropList selectedItem
 ]
 
 { #category : #api }
-CRCaseCreatorPresenter >> statuses: aCollectionOfStatuses [
+CRFBCaseCreatorPresenter >> statuses: aCollectionOfStatuses [
 	self statusesDropList
 		items: aCollectionOfStatuses
 ]
 
 { #category : #accessing }
-CRCaseCreatorPresenter >> statusesDropList [
+CRFBCaseCreatorPresenter >> statusesDropList [
 	^ statusesDropList
 ]
 
 { #category : #api }
-CRCaseCreatorPresenter >> userSelected [
+CRFBCaseCreatorPresenter >> userSelected [
 	^ self assignToDropList selectedItem
 ]
 
 { #category : #api }
-CRCaseCreatorPresenter >> users: aCollectionOfUsers [
+CRFBCaseCreatorPresenter >> users: aCollectionOfUsers [
 	self assignToDropList
 		items: aCollectionOfUsers
 ]

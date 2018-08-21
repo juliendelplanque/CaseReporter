@@ -178,7 +178,7 @@ CRFBClient >> newCase: aFogBugzCase [
 
 { #category : #ui }
 CRFBClient >> openCaseCreationUIWithTemplate: aString [
-	CRCaseCreatorPresenter openForClient: self withTemplate: aString
+	CRFBCaseCreatorPresenter openForClient: self withTemplate: aString
 ]
 
 { #category : #interacting }
