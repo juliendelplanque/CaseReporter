@@ -1,3 +1,8 @@
+"
+I provide a basic presenter to let user desvribe a case.
+
+Basically, I define that a case has a title and a description and I allow to set a template for the description of the case.
+"
 Class {
 	#name : #CRAbstractCaseCreatorPresenter,
 	#superclass : #ComposablePresenter,
