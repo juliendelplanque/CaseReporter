@@ -30,17 +30,12 @@ CROpenCaseForClass class >> fullBrowserTabActivation [
 	^ClyBrowserTabCommandActivation for: ClyClassContextOfFullBrowser 
 ]
 
-{ #category : #execution }
-CROpenCaseForClass >> execute [
-	| client |
-	client := [ CRClient getWorkingClientByAskingUser ] on: CRUserCancelledLogin do: [ 
-		UIManager default inform: 'Log-in cancelled.'.
-		^ self ].
-	CRCaseCreatorPresenter openForClient: client withTemplate: 
-			('The following issue has been found in {1} class:
+{ #category : #accessing }
+CROpenCaseForClass >> issueTemplate [
+	^ 'The following issue has been found in {1} class:
 
 The following code snippet(s) allows one to reproduce the issue:
-' format: {classConcerned name})
+' format: { classConcerned name }
 ]
 
 { #category : #execution }

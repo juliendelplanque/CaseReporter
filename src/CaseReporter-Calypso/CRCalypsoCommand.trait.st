@@ -17,3 +17,17 @@ CRCalypsoCommand classSide >> defaultMenuItemName [
 CRCalypsoCommand classSide >> itemOrder [
 	^ 20
 ]
+
+{ #category : #execution }
+CRCalypsoCommand >> execute [
+	[ 
+		CRCaseCreatorPresenter openWithTemplate: self issueTemplate
+	] on: CRUserCancelledLogin do: [ 
+		UIManager default inform: 'Log-in cancelled.'.
+		^ self ].
+]
+
+{ #category : #accessing }
+CRCalypsoCommand >> issueTemplate [
+	^ self explicitRequirement
+]
