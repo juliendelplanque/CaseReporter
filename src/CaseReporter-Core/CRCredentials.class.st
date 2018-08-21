@@ -8,7 +8,7 @@ Class {
 		'login',
 		'password'
 	],
-	#category : #'CaseReporter-FogBugz-Client'
+	#category : #'CaseReporter-Core'
 }
 
 { #category : #private }
