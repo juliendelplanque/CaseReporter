@@ -10,7 +10,7 @@ Class {
 		'passwordLabel',
 		'passwordField'
 	],
-	#category : #'CaseReporter-UI-Utilities'
+	#category : #'CaseReporter-UI-Dialogs'
 }
 
 { #category : #specs }
