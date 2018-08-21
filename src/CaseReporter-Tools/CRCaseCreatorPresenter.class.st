@@ -73,6 +73,12 @@ CRCaseCreatorPresenter class >> example [
 ]
 
 { #category : #'instance creation' }
+CRCaseCreatorPresenter class >> open [
+	<script>
+	^ self openWithTemplate: ''
+]
+
+{ #category : #'instance creation' }
 CRCaseCreatorPresenter class >> openForClient: aFogBugzClient withTemplate: aString [
 	| caseCreator window |
 	caseCreator := self new
@@ -85,6 +91,11 @@ CRCaseCreatorPresenter class >> openForClient: aFogBugzClient withTemplate: aStr
 		centered;
 		whenClosedDo: [ aFogBugzClient logout ].
 	^ caseCreator
+]
+
+{ #category : #'instance creation' }
+CRCaseCreatorPresenter class >> openWithTemplate: aString [
+	^ self openForClient: CRClient getWorkingClientByAskingUser withTemplate: aString
 ]
 
 { #category : #adapting }
