@@ -1,6 +1,6 @@
 Extension { #name : #CRObject }
 
-{ #category : #'*CaseReporter-Tools' }
+{ #category : #'*CaseReporter-UI' }
 CRObject >> crString [
 	"The string displayed in CaseReporter UI."
 	^ self name

@@ -27,7 +27,7 @@ Class {
 		'assignToDropList',
 		'submitButton'
 	],
-	#category : #'CaseReporter-Tools-Dialogs'
+	#category : #'CaseReporter-UI-Dialogs'
 }
 
 { #category : #specs }

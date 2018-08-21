@@ -1,6 +1,6 @@
 Extension { #name : #Symbol }
 
-{ #category : #'*CaseReporter-Tools' }
+{ #category : #'*CaseReporter-UI' }
 Symbol >> asCaseReporterWidgetName [
 	^ ('CR' , self , 'Presenter') asSymbol
 ]

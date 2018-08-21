@@ -1,6 +1,6 @@
 Extension { #name : #CRClient }
 
-{ #category : #'*CaseReporter-Tools' }
+{ #category : #'*CaseReporter-UI' }
 CRClient class >> getWorkingClientByAskingUser [
 	"Return the default client if not nil, else interact with the user to get his login/password and create a working client."
 	| potentialCredentials client |

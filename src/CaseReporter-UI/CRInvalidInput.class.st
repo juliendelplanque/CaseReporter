@@ -4,5 +4,5 @@ Error raised when the user did not filled properly the form to submit a case on 
 Class {
 	#name : #CRInvalidInput,
 	#superclass : #Error,
-	#category : #'CaseReporter-Tools-Errors'
+	#category : #'CaseReporter-UI-Errors'
 }
