@@ -72,6 +72,17 @@ CRCaseCreatorPresenter class >> example [
 	^ self openForClient: client withTemplate: 'A custom template for issue description.'
 ]
 
+{ #category : #'world menu' }
+CRCaseCreatorPresenter class >> menuCommandOn: aBuilder [
+	<worldMenu> 		 
+		
+	(aBuilder item: #'Case Reporter')	 	 
+		action: [ self open ]; 
+		parent: #Tools;
+		icon: (Smalltalk ui iconNamed: #warning).
+	aBuilder withSeparatorAfter.
+]
+
 { #category : #'instance creation' }
 CRCaseCreatorPresenter class >> open [
 	<script>
