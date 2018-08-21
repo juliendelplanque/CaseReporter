@@ -5,7 +5,7 @@ My #errors inst. var. hold the actual list of errors.
 "
 Class {
 	#name : #CRFBErrorsList,
-	#superclass : #Error,
+	#superclass : #CRError,
 	#instVars : [
 		'errors'
 	],
