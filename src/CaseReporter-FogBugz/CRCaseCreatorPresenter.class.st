@@ -9,13 +9,8 @@ To try me:
 "
 Class {
 	#name : #CRCaseCreatorPresenter,
-	#superclass : #ComposablePresenter,
+	#superclass : #CRAbstractCaseCreatorPresenter,
 	#instVars : [
-		'titleLabel',
-		'titleInput',
-		'contentLabel',
-		'contentText',
-		'contentTemplate',
 		'projectsLabel',
 		'projectsDropList',
 		'categoriesLabel',
@@ -24,10 +19,9 @@ Class {
 		'milestonesDropList',
 		'prioritiesDropList',
 		'statusesDropList',
-		'assignToDropList',
-		'submitButton'
+		'assignToDropList'
 	],
-	#category : #'CaseReporter-UI-Dialogs'
+	#category : #'CaseReporter-FogBugz-UI'
 }
 
 { #category : #specs }
@@ -131,7 +125,7 @@ CRCaseCreatorPresenter >> adaptToClient: aFogBugzClient [
 	submitButton
 		action: [ 
 			[
-				aFogBugzClient newCase: self asFogBugzCase.
+				aFogBugzClient newCase: self asCase.
 				UIManager default inform: 'Case opened.'.
 				self delete ]
 				on: CRInvalidInput
@@ -156,7 +150,7 @@ CRCaseCreatorPresenter >> areasDropList [
 ]
 
 { #category : #api }
-CRCaseCreatorPresenter >> asFogBugzCase [
+CRCaseCreatorPresenter >> asCase [
 	self checkUserInputs.
 	^ CRFBCase new
 		title: self caseTitle;
@@ -177,11 +171,6 @@ CRCaseCreatorPresenter >> assignToDropList [
 ]
 
 { #category : #api }
-CRCaseCreatorPresenter >> caseTitle [
-	^ self titleInput text
-]
-
-{ #category : #api }
 CRCaseCreatorPresenter >> categories: anOrderedCollectionOfString [
 	self categoriesDropList
 		items: anOrderedCollectionOfString
@@ -195,48 +184,6 @@ CRCaseCreatorPresenter >> categoriesDropList [
 { #category : #api }
 CRCaseCreatorPresenter >> categorySelected [
 	^ self categoriesDropList selectedItem
-]
-
-{ #category : #checking }
-CRCaseCreatorPresenter >> checkUserInputs [
-	self title
-		ifEmpty: [ CRInvalidInput signal: 'The title of an issue can not be empty.' ].
-		
-	self content
-		ifEmpty: [ CRInvalidInput signal: 'The content of an issue can not be empty.' ]
-]
-
-{ #category : #api }
-CRCaseCreatorPresenter >> content [
-	^ self contentText text
-]
-
-{ #category : #accessing }
-CRCaseCreatorPresenter >> contentLabel [
-	^ contentLabel
-]
-
-{ #category : #accessing }
-CRCaseCreatorPresenter >> contentTemplate [
-	^ contentTemplate ifNil: [ contentTemplate := '' ]
-]
-
-{ #category : #accessing }
-CRCaseCreatorPresenter >> contentTemplate: anObject [
-	contentTemplate := anObject.
-	contentText
-		text: self contentTemplate
-]
-
-{ #category : #accessing }
-CRCaseCreatorPresenter >> contentText [
-	^ contentText
-]
-
-{ #category : #initialization }
-CRCaseCreatorPresenter >> initialize [
-	super initialize.
-	self title: 'Open a case' translated
 ]
 
 { #category : #initialization }
@@ -323,21 +270,8 @@ CRCaseCreatorPresenter >> initializeStatusesDropList [
 
 { #category : #initialization }
 CRCaseCreatorPresenter >> initializeWidgets [
-	titleLabel := self newLabel.
-	titleLabel label: 'Title:'.
-	titleInput := self newTextInput.
-	titleInput
-		ghostText: 'Short title to describe the issue';
-		autoAccept: true.
-	contentLabel := self newLabel.
-	contentLabel label: 'Description:'.
-	contentText := self newText.
-	contentText
-		text: self contentTemplate;
-		autoAccept: true.
+	super initializeWidgets.
 	self initializeLabelledDropLists.
-	submitButton := self newButton.
-	submitButton label: 'Submit'
 ]
 
 { #category : #api }
@@ -354,11 +288,6 @@ CRCaseCreatorPresenter >> milestones: aCollectionOfMilestones [
 { #category : #accessing }
 CRCaseCreatorPresenter >> milestonesDropList [
 	^ milestonesDropList
-]
-
-{ #category : #widgets }
-CRCaseCreatorPresenter >> newLabelledDropList [
-	^ self instantiate: CRLabelledDropListPresenter
 ]
 
 { #category : #adapting }
@@ -426,21 +355,6 @@ CRCaseCreatorPresenter >> statuses: aCollectionOfStatuses [
 { #category : #accessing }
 CRCaseCreatorPresenter >> statusesDropList [
 	^ statusesDropList
-]
-
-{ #category : #accessing }
-CRCaseCreatorPresenter >> submitButton [
-	^ submitButton
-]
-
-{ #category : #accessing }
-CRCaseCreatorPresenter >> titleInput [
-	^ titleInput
-]
-
-{ #category : #accessing }
-CRCaseCreatorPresenter >> titleLabel [
-	^ titleLabel
 ]
 
 { #category : #api }
