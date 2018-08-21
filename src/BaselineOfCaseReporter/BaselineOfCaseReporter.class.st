@@ -18,8 +18,8 @@ BaselineOfCaseReporter >> baseline: spec [
 BaselineOfCaseReporter >> definePackages: spec [
 	spec
 		package: 'CaseReporter-Core';
-		package: 'CaseReporter-FogBugz' with: [ spec requires: #('CaseReporter-Core') ];
+		package: 'CaseReporter-UI' with: [ spec requires: #('CaseReporter-Core' ) ];
+		package: 'CaseReporter-FogBugz' with: [ spec requires: #('CaseReporter-Core' 'CaseReporter-UI') ];
 		package: 'CaseReporter-Tests-FogBugz' with: [ spec requires: #('CaseReporter-FogBugz' ) ];
-		package: 'CaseReporter-UI' with: [ spec requires: #('CaseReporter-FogBugz' ) ];
-		package: 'CaseReporter-Calypso' with: [ spec requires: #('CaseReporter-FogBugz' 'CaseReporter-UI' ) ]
+		package: 'CaseReporter-Calypso' with: [ spec requires: #('CaseReporter-FogBugz') ]
 ]
