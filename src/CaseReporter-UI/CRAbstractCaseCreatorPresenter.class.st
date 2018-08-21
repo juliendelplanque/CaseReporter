@@ -12,6 +12,32 @@ Class {
 	#category : #'CaseReporter-UI-Dialogs'
 }
 
+{ #category : #'instance creation' }
+CRAbstractCaseCreatorPresenter class >> open [
+	<script>
+	^ self openWithTemplate: ''
+]
+
+{ #category : #'instance creation' }
+CRAbstractCaseCreatorPresenter class >> openForClient: aFogBugzClient withTemplate: aString [
+	| caseCreator window |
+	caseCreator := self new
+						contentTemplate: aString;
+						adaptToClient: aFogBugzClient;
+						yourself.
+	window := caseCreator openWithSpec.
+	window
+		extent: World extent * 0.65;
+		centered;
+		whenClosedDo: [ aFogBugzClient logout ].
+	^ caseCreator
+]
+
+{ #category : #'instance creation' }
+CRAbstractCaseCreatorPresenter class >> openWithTemplate: aString [
+	^ self openForClient: CRClient getWorkingClientByAskingUser withTemplate: aString
+]
+
 { #category : #adapting }
 CRAbstractCaseCreatorPresenter >> adaptToClient: aCRClient [
 	"Perform all actions required to update the UI according to data provided by aCRClient."

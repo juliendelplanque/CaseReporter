@@ -77,32 +77,6 @@ CRFBCaseCreatorPresenter class >> menuCommandOn: aBuilder [
 	aBuilder withSeparatorAfter.
 ]
 
-{ #category : #'instance creation' }
-CRFBCaseCreatorPresenter class >> open [
-	<script>
-	^ self openWithTemplate: ''
-]
-
-{ #category : #'instance creation' }
-CRFBCaseCreatorPresenter class >> openForClient: aFogBugzClient withTemplate: aString [
-	| caseCreator window |
-	caseCreator := self new
-						contentTemplate: aString;
-						adaptToClient: aFogBugzClient;
-						yourself.
-	window := caseCreator openWithSpec.
-	window
-		extent: World extent * 0.65;
-		centered;
-		whenClosedDo: [ aFogBugzClient logout ].
-	^ caseCreator
-]
-
-{ #category : #'instance creation' }
-CRFBCaseCreatorPresenter class >> openWithTemplate: aString [
-	^ self openForClient: CRClient getWorkingClientByAskingUser withTemplate: aString
-]
-
 { #category : #adapting }
 CRFBCaseCreatorPresenter >> adaptToClient: aFogBugzClient [
 	| todo |
