@@ -33,15 +33,6 @@ CRClient class >> default: anObject [
 	default := anObject
 ]
 
-{ #category : #examples }
-CRClient class >> example [
-	
-	|client|
-	client := CRClient loginUser: 'abc@def.com' password: 'secret'.
-	(client query: 'UFFI') inspect.
-	client logout
-]
-
 { #category : #'instance creation' }
 CRClient class >> login: aCredentials [
 
